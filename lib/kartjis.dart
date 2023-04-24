@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kartjis_mobile_app/common/styles/button_style.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
+import 'package:kartjis_mobile_app/common/styles/input_style.dart';
 import 'package:kartjis_mobile_app/common/styles/text_style.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 import 'package:kartjis_mobile_app/common/utils/routes.dart';
-import 'package:kartjis_mobile_app/home_page.dart';
+import 'package:kartjis_mobile_app/presentation/features/auth/login_page.dart';
 
 class KartjisApp extends StatelessWidget {
   const KartjisApp({super.key});
@@ -19,6 +21,10 @@ class KartjisApp extends StatelessWidget {
         textTheme: textTheme,
         dividerColor: dividerColor,
         scaffoldBackgroundColor: scaffoldBackgroundColor,
+        filledButtonTheme: filledButtonTheme,
+        outlinedButtonTheme: outlinedButtonTheme,
+        textButtonTheme: textButtonTheme,
+        inputDecorationTheme: inputDecorationTheme,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
@@ -29,7 +35,7 @@ class KartjisApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
       navigatorObservers: [routeObserver],
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
