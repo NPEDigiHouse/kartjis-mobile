@@ -92,6 +92,7 @@ class LoginPage extends StatelessWidget {
                 children: <Widget>[
                   FormBuilder(
                     key: formKey,
+                    autoFocusOnValidationFailure: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
