@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 
 final inputDecorationTheme = InputDecorationTheme(
   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -6,6 +7,6 @@ final inputDecorationTheme = InputDecorationTheme(
     borderRadius: BorderRadius.circular(14),
   ),
   hintStyle: const TextStyle(
-    color: Color(0xFFC9C9C9),
+    color: onDisableColor,
   ),
 );

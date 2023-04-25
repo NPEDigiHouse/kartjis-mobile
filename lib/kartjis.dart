@@ -35,7 +35,7 @@ class KartjisApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
       navigatorObservers: [routeObserver],
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }

@@ -5,32 +5,13 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
+import 'package:kartjis_mobile_app/presentation/widgets/custom_field.dart';
+import 'package:kartjis_mobile_app/presentation/widgets/password_field.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  late final ValueNotifier<bool> isPasswordVisible;
-
+class LoginPage extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
-  @override
-  void initState() {
-    super.initState();
-
-    isPasswordVisible = ValueNotifier(false);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    isPasswordVisible.dispose();
-  }
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,61 +95,38 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        FormBuilderTextField(
-                          name: 'email',
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            labelText: 'Email',
-                            hintText: 'Masukkan email kamu',
-                            prefixIcon: Icon(Icons.email_outlined),
-                          ),
-                          validator: FormBuilderValidators.compose([
+                        CustomField(
+                          name: 'Email',
+                          hintText: 'Masukkan email Anda',
+                          textInputType: TextInputType.emailAddress,
+                          prefixIcon: Icons.email_rounded,
+                          validators: [
                             FormBuilderValidators.required(
                               errorText: 'Bagian ini harus diisi',
                             ),
                             FormBuilderValidators.email(
                               errorText: 'Email tidak valid',
                             ),
-                          ]),
+                          ],
                         ),
                         const SizedBox(height: 20),
-                        ValueListenableBuilder(
-                          valueListenable: isPasswordVisible,
-                          builder: (context, isVisible, child) {
-                            return FormBuilderTextField(
-                              name: 'password',
-                              textInputAction: TextInputAction.done,
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: !isVisible,
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                hintText: 'Masukkan password kamu',
-                                prefixIcon:
-                                    const Icon(Icons.lock_outline_rounded),
-                                suffixIcon: IconButton(
-                                  icon: isVisible
-                                      ? const Icon(Icons.visibility_outlined)
-                                      : const Icon(
-                                          Icons.visibility_off_outlined),
-                                  onPressed: () =>
-                                      isPasswordVisible.value = !isVisible,
-                                ),
-                              ),
-                              validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(
-                                  errorText: 'Bagian ini harus diisi.',
-                                ),
-                              ]),
-                            );
-                          },
-                        )
+                        PasswordField(
+                          name: 'Password',
+                          hintText: 'Masukkan password kamu',
+                          textInputType: TextInputType.visiblePassword,
+                          prefixIcon: Icons.lock_rounded,
+                          validators: [
+                            FormBuilderValidators.required(
+                              errorText: 'Bagian ini harus diisi',
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

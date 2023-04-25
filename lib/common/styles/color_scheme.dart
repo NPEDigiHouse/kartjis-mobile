@@ -10,6 +10,7 @@ const primaryTextColor = Color(0XFF1E293B);
 const secondaryTextColor = Color(0XFFBBBEC1);
 const dividerColor = Color(0XFFE4E4E4);
 const errorColor = Color(0XFFD90429);
+const onDisableColor = Color(0xFFC9C9C9);
 
 // Color scheme
 final colorScheme = ColorScheme.fromSeed(
