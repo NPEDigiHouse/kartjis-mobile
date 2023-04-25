@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/custom_field.dart';
@@ -52,10 +51,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 40,
-                      left: 20,
-                    ),
+                    padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,11 +60,12 @@ class LoginPage extends StatelessWidget {
                           AssetPath.getIcon('kartjis_filled.svg'),
                         ),
                         const SizedBox(height: 32),
-                        Text(
+                        const Text(
                           'KARTJIS',
-                          style: GoogleFonts.titilliumWeb(
-                            fontSize: 48,
+                          style: TextStyle(
+                            fontFamily: 'Titillium Web',
                             fontWeight: FontWeight.bold,
+                            fontSize: 48,
                             height: 1,
                             color: primaryColor,
                           ),
@@ -77,8 +74,8 @@ class LoginPage extends StatelessWidget {
                           '\tLogin untuk mulai mengeksplorasi Event!',
                           style: Theme.of(context)
                               .textTheme
-                              .bodySmall!
-                              .copyWith(color: secondaryTextColor),
+                              .bodySmall
+                              ?.copyWith(color: secondaryTextColor),
                         ),
                       ],
                     ),
@@ -87,7 +84,7 @@ class LoginPage extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 32, 20, 32),
+              padding: const EdgeInsets.fromLTRB(20, 32, 20, 40),
               child: Column(
                 children: <Widget>[
                   FormBuilder(
@@ -122,8 +119,69 @@ class LoginPage extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            'Lupa Password?',
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 0,
+                                      color: primaryColor,
+                                    ),
+                          ),
+                        ),
                       ],
                     ),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton(
+                      onPressed: () {},
+                      child: const Text('Masuk'),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  const Text('Atau'),
+                  const SizedBox(height: 14),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SvgPicture.asset(
+                            AssetPath.getIcon('google_filled.svg'),
+                          ),
+                          const SizedBox(width: 8),
+                          const Text('Lanjutkan dengan Google'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Belum punya akun? Buat akun baru ',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'di sini.',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: primaryColor,
+                                  ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

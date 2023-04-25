@@ -52,7 +52,7 @@ class _CustomFieldState extends State<CustomField> {
       children: <Widget>[
         Text(
           widget.name,
-          style: Theme.of(context).textTheme.labelLarge!,
+          style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 8),
         Focus(
