@@ -6,6 +6,8 @@ import 'package:kartjis_mobile_app/common/styles/text_style.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 import 'package:kartjis_mobile_app/common/utils/routes.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/login_page.dart';
+import 'package:kartjis_mobile_app/presentation/features/auth/register_page.dart';
+import 'package:kartjis_mobile_app/presentation/home_page.dart';
 
 class KartjisApp extends StatelessWidget {
   const KartjisApp({super.key});
@@ -36,6 +38,27 @@ class KartjisApp extends StatelessWidget {
       scaffoldMessengerKey: scaffoldMessengerKey,
       navigatorObservers: [routeObserver],
       home: LoginPage(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case loginRoute:
+            return MaterialPageRoute(
+              builder: (_) => LoginPage(),
+              settings: settings,
+            );
+          case registerRoute:
+            return MaterialPageRoute(
+              builder: (_) => const RegisterPage(),
+              settings: settings,
+            );
+          case homeRoute:
+            return MaterialPageRoute(
+              builder: (_) => const HomePage(),
+              settings: settings,
+            );
+          default:
+            return null;
+        }
+      },
     );
   }
 }

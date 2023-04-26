@@ -4,11 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
+import 'package:kartjis_mobile_app/common/utils/banner_utils.dart';
+import 'package:kartjis_mobile_app/common/utils/keys.dart';
+import 'package:kartjis_mobile_app/common/utils/routes.dart';
+import 'package:kartjis_mobile_app/data/dummies.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/custom_field.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/password_field.dart';
 
 class LoginPage extends StatelessWidget {
-  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+  final formKey = GlobalKey<FormBuilderState>();
 
   LoginPage({Key? key}) : super(key: key);
 
@@ -139,7 +143,7 @@ class LoginPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: FilledButton(
-                      onPressed: () {},
+                      onPressed: () => onPressedSubmitButton(context),
                       child: const Text('Masuk'),
                     ),
                   ),
@@ -171,7 +175,9 @@ class LoginPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => navigatorKey.currentState!.pushNamed(
+                          registerRoute,
+                        ),
                         child: Text(
                           'di sini.',
                           style:
@@ -190,6 +196,38 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onPressedSubmitButton(BuildContext context) {
+    FocusScope.of(context).unfocus();
+
+    formKey.currentState!.save();
+
+    if (formKey.currentState!.validate()) {
+      final value = formKey.currentState!.value;
+
+      if (value['email'] != defaultEmail &&
+          value['password'] != defaultPassword) {
+        final errorBanner = BannerUtils.createMaterialBanner(
+          contentText: 'Email atau Password salah!',
+          foregroundColor: scaffoldBackgroundColor,
+          backgroundColor: errorColor,
+          leadingIcon: Icons.cancel_outlined,
+        );
+
+        scaffoldMessengerKey.currentState!
+          ..hideCurrentMaterialBanner()
+          ..showMaterialBanner(errorBanner);
+
+        Future.delayed(
+          const Duration(seconds: 4),
+          () => scaffoldMessengerKey.currentState!.hideCurrentMaterialBanner(),
+        );
+      } else {
+        // navigate to main page
+        navigatorKey.currentState!.pushReplacementNamed(homeRoute);
+      }
+    }
   }
 }
 

@@ -9,6 +9,7 @@ class CustomField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final TextCapitalization textCapitalization;
   final String? hintText;
+  final bool hasPrefixIcon;
   final IconData? prefixIcon;
   final List<String? Function(String?)>? validators;
 
@@ -19,6 +20,7 @@ class CustomField extends StatefulWidget {
     this.textInputAction,
     this.textCapitalization = TextCapitalization.none,
     this.hintText,
+    this.hasPrefixIcon = true,
     this.prefixIcon,
     this.validators,
   });
@@ -55,49 +57,56 @@ class _CustomFieldState extends State<CustomField> {
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 8),
-        Focus(
-          onFocusChange: (value) => isFocus.value = value,
-          child: FormBuilderTextField(
-            name: widget.name.toLowerCase(),
-            keyboardType: widget.textInputType,
-            textInputAction: widget.textInputAction,
-            textCapitalization: widget.textCapitalization,
-            textAlignVertical: TextAlignVertical.center,
-            decoration: InputDecoration(
-              hintText: widget.hintText,
-              prefixIcon: Padding(
-                padding: const EdgeInsetsDirectional.only(
-                  start: 18,
-                  end: 12,
+        if (widget.hasPrefixIcon)
+          Focus(
+            onFocusChange: (value) => isFocus.value = value,
+            child: _buildCustomTextField(),
+          )
+        else
+          _buildCustomTextField()
+      ],
+    );
+  }
+
+  FormBuilderTextField _buildCustomTextField() {
+    return FormBuilderTextField(
+      name: widget.name.toLowerCase(),
+      keyboardType: widget.textInputType,
+      textInputAction: widget.textInputAction,
+      textCapitalization: widget.textCapitalization,
+      textAlignVertical: TextAlignVertical.center,
+      decoration: InputDecoration(
+        hintText: widget.hintText,
+        prefixIcon: Padding(
+          padding: const EdgeInsetsDirectional.only(
+            start: 18,
+            end: 12,
+          ),
+          child: ValueListenableBuilder(
+            valueListenable: isFocus,
+            builder: (context, isFocus, child) {
+              return CircleAvatar(
+                radius: 19,
+                backgroundColor: isFocus ? tertiaryColor : dividerColor,
+                child: Icon(
+                  widget.prefixIcon,
+                  color: isFocus ? backgroundColor : onDisableColor,
+                  size: 18,
                 ),
-                child: ValueListenableBuilder(
-                  valueListenable: isFocus,
-                  builder: (context, isFocus, child) {
-                    return CircleAvatar(
-                      radius: 19,
-                      backgroundColor: isFocus ? tertiaryColor : dividerColor,
-                      child: Icon(
-                        widget.prefixIcon,
-                        color: isFocus ? backgroundColor : onDisableColor,
-                        size: 18,
-                      ),
-                    );
-                  },
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(14),
-                borderSide: const BorderSide(
-                  color: tertiaryColor,
-                ),
-              ),
-            ),
-            validator: widget.validators != null
-                ? FormBuilderValidators.compose(widget.validators!)
-                : null,
+              );
+            },
           ),
         ),
-      ],
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(
+            color: tertiaryColor,
+          ),
+        ),
+      ),
+      validator: widget.validators != null
+          ? FormBuilderValidators.compose(widget.validators!)
+          : null,
     );
   }
 }
