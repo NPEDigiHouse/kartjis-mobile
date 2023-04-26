@@ -5,6 +5,7 @@ import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 
 class CustomField extends StatefulWidget {
   final String name;
+  final String label;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
   final TextCapitalization textCapitalization;
@@ -16,6 +17,7 @@ class CustomField extends StatefulWidget {
   const CustomField({
     super.key,
     required this.name,
+    required this.label,
     this.textInputType,
     this.textInputAction,
     this.textCapitalization = TextCapitalization.none,
@@ -53,7 +55,7 @@ class _CustomFieldState extends State<CustomField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          widget.name,
+          widget.label,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 8),
@@ -70,31 +72,46 @@ class _CustomFieldState extends State<CustomField> {
 
   FormBuilderTextField _buildCustomTextField() {
     return FormBuilderTextField(
-      name: widget.name.toLowerCase(),
+      name: widget.name,
       keyboardType: widget.textInputType,
       textInputAction: widget.textInputAction,
       textCapitalization: widget.textCapitalization,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
+        contentPadding: !widget.hasPrefixIcon
+            ? const EdgeInsets.fromLTRB(16, 12, 16, 12)
+            : null,
         hintText: widget.hintText,
-        prefixIcon: Padding(
-          padding: const EdgeInsetsDirectional.only(
-            start: 18,
-            end: 12,
-          ),
-          child: ValueListenableBuilder(
-            valueListenable: isFocus,
-            builder: (context, isFocus, child) {
-              return CircleAvatar(
-                radius: 19,
-                backgroundColor: isFocus ? tertiaryColor : dividerColor,
-                child: Icon(
-                  widget.prefixIcon,
-                  color: isFocus ? backgroundColor : onDisableColor,
-                  size: 18,
+        prefixIcon: widget.hasPrefixIcon
+            ? Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 18,
+                  end: 12,
                 ),
-              );
-            },
+                child: ValueListenableBuilder(
+                  valueListenable: isFocus,
+                  builder: (context, isFocus, child) {
+                    return CircleAvatar(
+                      radius: 19,
+                      backgroundColor: isFocus ? tertiaryColor : dividerColor,
+                      child: Icon(
+                        widget.prefixIcon,
+                        color: isFocus ? backgroundColor : onDisableColor,
+                        size: 18,
+                      ),
+                    );
+                  },
+                ),
+              )
+            : null,
+        suffixIcon: Padding(
+          padding: EdgeInsetsDirectional.only(
+            end: widget.hasPrefixIcon ? 4 : 0,
+          ),
+          child: IconButton(
+            icon: const Icon(Icons.visibility_outlined),
+            iconSize: 16,
+            onPressed: () {},
           ),
         ),
         focusedBorder: OutlineInputBorder(

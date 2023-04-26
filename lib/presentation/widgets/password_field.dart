@@ -5,6 +5,7 @@ import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 
 class PasswordField extends StatefulWidget {
   final String name;
+  final String label;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
   final TextCapitalization textCapitalization;
@@ -12,10 +13,12 @@ class PasswordField extends StatefulWidget {
   final bool hasPrefixIcon;
   final IconData? prefixIcon;
   final List<String? Function(String?)>? validators;
+  final ValueChanged<String?>? onChanged;
 
   const PasswordField({
     super.key,
     required this.name,
+    required this.label,
     this.textInputType,
     this.textInputAction,
     this.textCapitalization = TextCapitalization.none,
@@ -23,6 +26,7 @@ class PasswordField extends StatefulWidget {
     this.hasPrefixIcon = true,
     this.prefixIcon,
     this.validators,
+    this.onChanged,
   });
 
   @override
@@ -56,7 +60,7 @@ class _PasswordFieldState extends State<PasswordField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          widget.name,
+          widget.label,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 8),
@@ -76,37 +80,43 @@ class _PasswordFieldState extends State<PasswordField> {
       valueListenable: isVisible,
       builder: (context, isVisible, child) {
         return FormBuilderTextField(
-          name: widget.name.toLowerCase(),
+          name: widget.name,
           keyboardType: widget.textInputType,
           textInputAction: widget.textInputAction,
           textCapitalization: widget.textCapitalization,
           textAlignVertical: TextAlignVertical.center,
           obscureText: !isVisible,
           decoration: InputDecoration(
+            contentPadding: !widget.hasPrefixIcon
+                ? const EdgeInsets.fromLTRB(16, 12, 16, 12)
+                : null,
             hintText: widget.hintText,
-            prefixIcon: Padding(
-              padding: const EdgeInsetsDirectional.only(
-                start: 18,
-                end: 12,
-              ),
-              child: ValueListenableBuilder(
-                valueListenable: isFocus,
-                builder: (context, isFocus, child) {
-                  return CircleAvatar(
-                    radius: 19,
-                    backgroundColor: isFocus ? tertiaryColor : dividerColor,
-                    child: Icon(
-                      widget.prefixIcon,
-                      color: isFocus ? backgroundColor : onDisableColor,
-                      size: 18,
+            prefixIcon: widget.hasPrefixIcon
+                ? Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 18,
+                      end: 12,
                     ),
-                  );
-                },
-              ),
-            ),
+                    child: ValueListenableBuilder(
+                      valueListenable: isFocus,
+                      builder: (context, isFocus, child) {
+                        return CircleAvatar(
+                          radius: 19,
+                          backgroundColor:
+                              isFocus ? tertiaryColor : dividerColor,
+                          child: Icon(
+                            widget.prefixIcon,
+                            color: isFocus ? backgroundColor : onDisableColor,
+                            size: 18,
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                : null,
             suffixIcon: Padding(
-              padding: const EdgeInsetsDirectional.only(
-                end: 4,
+              padding: EdgeInsetsDirectional.only(
+                end: widget.hasPrefixIcon ? 4 : 0,
               ),
               child: IconButton(
                 icon: isVisible
@@ -126,6 +136,7 @@ class _PasswordFieldState extends State<PasswordField> {
           validator: widget.validators != null
               ? FormBuilderValidators.compose(widget.validators!)
               : null,
+          onChanged: widget.onChanged,
         );
       },
     );

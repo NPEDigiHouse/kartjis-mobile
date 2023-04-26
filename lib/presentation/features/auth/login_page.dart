@@ -8,13 +8,14 @@ import 'package:kartjis_mobile_app/common/utils/banner_utils.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 import 'package:kartjis_mobile_app/common/utils/routes.dart';
 import 'package:kartjis_mobile_app/data/dummies.dart';
+import 'package:kartjis_mobile_app/presentation/features/auth/widgets/custom_clip_path.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/custom_field.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/password_field.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
-
   final _formKey = GlobalKey<FormBuilderState>();
+
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class LoginPage extends StatelessWidget {
                 ClipPath(
                   clipper: CustomClipPath(),
                   child: Container(
-                    height: 240,
+                    height: 255,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
@@ -42,7 +43,7 @@ class LoginPage extends StatelessWidget {
                 ClipPath(
                   clipper: CustomClipPath(),
                   child: Container(
-                    height: 240,
+                    height: 255,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: <Color>[
@@ -55,7 +56,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 48, 20, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +64,7 @@ class LoginPage extends StatelessWidget {
                         SvgPicture.asset(
                           AssetPath.getIcon('kartjis_filled.svg'),
                         ),
-                        const SizedBox(height: 32),
+                        const SizedBox(height: 24),
                         const Text(
                           'KARTJIS',
                           style: TextStyle(
@@ -88,7 +89,7 @@ class LoginPage extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 32, 20, 40),
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 48),
               child: Column(
                 children: <Widget>[
                   FormBuilder(
@@ -98,7 +99,8 @@ class LoginPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         CustomField(
-                          name: 'Email',
+                          name: 'email',
+                          label: 'Email',
                           hintText: 'Masukkan email Anda',
                           textInputType: TextInputType.emailAddress,
                           prefixIcon: Icons.email_rounded,
@@ -113,8 +115,9 @@ class LoginPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         PasswordField(
-                          name: 'Password',
-                          hintText: 'Masukkan password kamu',
+                          name: 'password',
+                          label: 'Password',
+                          hintText: 'Masukkan password Anda',
                           textInputType: TextInputType.visiblePassword,
                           prefixIcon: Icons.lock_rounded,
                           validators: [
@@ -175,9 +178,14 @@ class LoginPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       GestureDetector(
-                        onTap: () => navigatorKey.currentState!.pushNamed(
-                          registerRoute,
-                        ),
+                        onTap: () {
+                          // hide material banner
+                          scaffoldMessengerKey.currentState!
+                              .hideCurrentMaterialBanner();
+
+                          // navigate to register page
+                          navigatorKey.currentState!.pushNamed(registerRoute);
+                        },
                         child: Text(
                           'di sini.',
                           style:
@@ -227,28 +235,5 @@ class LoginPage extends StatelessWidget {
         navigatorKey.currentState!.pushReplacementNamed(homeRoute);
       }
     }
-  }
-}
-
-class CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    double w = size.width;
-    double h = size.height;
-
-    Path path = Path();
-
-    path.moveTo(0, 0);
-    path.lineTo(0, h * 0.36);
-    path.lineTo(w, h);
-    path.lineTo(w, 0);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
   }
 }
