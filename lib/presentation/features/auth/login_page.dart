@@ -12,9 +12,9 @@ import 'package:kartjis_mobile_app/presentation/widgets/custom_field.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/password_field.dart';
 
 class LoginPage extends StatelessWidget {
-  final formKey = GlobalKey<FormBuilderState>();
-
   LoginPage({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   FormBuilder(
-                    key: formKey,
+                    key: _formKey,
                     autoFocusOnValidationFailure: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -143,7 +143,7 @@ class LoginPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: FilledButton(
-                      onPressed: () => onPressedSubmitButton(context),
+                      onPressed: () => login(context),
                       child: const Text('Masuk'),
                     ),
                   ),
@@ -198,13 +198,13 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  void onPressedSubmitButton(BuildContext context) {
+  void login(BuildContext context) {
     FocusScope.of(context).unfocus();
 
-    formKey.currentState!.save();
+    _formKey.currentState!.save();
 
-    if (formKey.currentState!.validate()) {
-      final value = formKey.currentState!.value;
+    if (_formKey.currentState!.validate()) {
+      final value = _formKey.currentState!.value;
 
       if (value['email'] != defaultEmail &&
           value['password'] != defaultPassword) {
@@ -215,15 +215,14 @@ class LoginPage extends StatelessWidget {
           leadingIcon: Icons.cancel_outlined,
         );
 
+        // show material banner
         scaffoldMessengerKey.currentState!
           ..hideCurrentMaterialBanner()
           ..showMaterialBanner(errorBanner);
-
-        Future.delayed(
-          const Duration(seconds: 4),
-          () => scaffoldMessengerKey.currentState!.hideCurrentMaterialBanner(),
-        );
       } else {
+        // hide material banner
+        scaffoldMessengerKey.currentState!.hideCurrentMaterialBanner();
+
         // navigate to main page
         navigatorKey.currentState!.pushReplacementNamed(homeRoute);
       }
