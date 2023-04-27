@@ -77,10 +77,7 @@ class LoginPage extends StatelessWidget {
                         ),
                         Text(
                           '\tLogin untuk mulai mengeksplorasi Event!',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(color: secondaryTextColor),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),
@@ -104,6 +101,7 @@ class LoginPage extends StatelessWidget {
                           hintText: 'Masukkan email Anda',
                           textInputType: TextInputType.emailAddress,
                           prefixIcon: Icons.email_rounded,
+                          hasSuffixIcon: false,
                           validators: [
                             FormBuilderValidators.required(
                               errorText: 'Bagian ini harus diisi',

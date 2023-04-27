@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
+import 'package:kartjis_mobile_app/common/helpers/reusable_helper.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/widgets/custom_clip_path.dart';
@@ -20,6 +21,8 @@ class _RegisterPageState extends State<RegisterPage> {
   late final ValueNotifier<String> passwordNotifier;
 
   final _formKey = GlobalKey<FormBuilderState>();
+
+  DateTime _date = DateTime.now();
 
   @override
   void initState() {
@@ -152,6 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           label: 'Nama',
                           hintText: 'Masukkan nama Anda',
                           hasPrefixIcon: false,
+                          hasSuffixIcon: false,
                           textInputType: TextInputType.name,
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.words,
@@ -171,6 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           label: 'Email',
                           hintText: 'Masukkan email Anda',
                           hasPrefixIcon: false,
+                          hasSuffixIcon: false,
                           textInputType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           validators: [
@@ -197,7 +202,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             FormBuilderValidators.match(
                               r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
                               errorText:
-                                  'Password minimal 8 karakter dan mengandung angka dan huruf',
+                                  'Password min. 8 karakter dengan angka dan huruf',
                             ),
                           ],
                           onChanged: (value) {
@@ -206,24 +211,42 @@ class _RegisterPageState extends State<RegisterPage> {
                             }
                           },
                         ),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () => generateRandomPassword(),
+                          child: Text(
+                            'Gunakan password acak',
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 0,
+                                      color: primaryColor,
+                                    ),
+                          ),
+                        ),
                         const SizedBox(height: 20),
-                        PasswordField(
-                          name: 'confirm_password',
-                          label: 'Konfirmasi Password',
-                          hintText: 'Ulangi password di atas',
-                          hasPrefixIcon: false,
-                          textInputType: TextInputType.visiblePassword,
-                          textInputAction: TextInputAction.next,
-                          validators: [
-                            FormBuilderValidators.required(
-                              errorText: 'Bagian ini harus diisi',
-                            ),
-                            FormBuilderValidators.equal(
-                              passwordNotifier.value,
-                              errorText:
-                                  'Harus sama dengan password sebelumnya',
-                            ),
-                          ],
+                        ValueListenableBuilder(
+                          valueListenable: passwordNotifier,
+                          builder: (context, password, child) {
+                            return PasswordField(
+                              name: 'confirm_password',
+                              label: 'Konfirmasi Password',
+                              hintText: 'Ulangi password di atas',
+                              hasPrefixIcon: false,
+                              textInputType: TextInputType.visiblePassword,
+                              textInputAction: TextInputAction.next,
+                              validators: [
+                                FormBuilderValidators.required(
+                                  errorText: 'Bagian ini harus diisi',
+                                ),
+                                FormBuilderValidators.equal(
+                                  password,
+                                  errorText:
+                                      'Harus sama dengan password sebelumnya',
+                                ),
+                              ],
+                            );
+                          },
                         ),
                         const SizedBox(height: 20),
                         CustomField(
@@ -231,12 +254,63 @@ class _RegisterPageState extends State<RegisterPage> {
                           label: 'Tanggal Lahir',
                           hintText: 'dd/mm/yyyy',
                           hasPrefixIcon: false,
-                          textInputAction: TextInputAction.next,
+                          suffixIcon: Icons.calendar_month_rounded,
+                          textInputType: TextInputType.none,
                           validators: [
                             FormBuilderValidators.required(
                               errorText: 'Bagian ini harus diisi',
                             ),
                           ],
+                          onTap: () => showBirthDatePicker(context),
+                        ),
+                        const SizedBox(height: 20),
+                        CustomField(
+                          name: 'phone_number',
+                          label: 'No. HP',
+                          hintText: '08xxxxx',
+                          hasPrefixIcon: false,
+                          hasSuffixIcon: false,
+                          textInputType: TextInputType.number,
+                          textInputAction: TextInputAction.done,
+                          validators: [
+                            FormBuilderValidators.required(
+                              errorText: 'Bagian ini harus diisi',
+                            ),
+                            FormBuilderValidators.integer(
+                              errorText: 'No. HP tidak valid',
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 40),
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: Theme.of(context).textTheme.bodySmall,
+                            children: const <TextSpan>[
+                              TextSpan(
+                                text:
+                                    'Dengan mendaftar, Anda telah menyetujui setiap ',
+                              ),
+                              TextSpan(
+                                text: 'syarat dan ketentuan ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'yang berlaku.',
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          width: double.infinity,
+                          child: FilledButton(
+                            onPressed: () => register(context),
+                            child: const Text('Daftar Sekarang!'),
+                          ),
                         ),
                       ],
                     ),
@@ -248,5 +322,43 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  Future<void> showBirthDatePicker(BuildContext context) async {
+    final dateOfBirth = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(_date.year - 40),
+      lastDate: DateTime(_date.year, 12, 31),
+      currentDate: DateTime.now(),
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      helpText: 'Pilih Tanggal Lahir',
+    );
+
+    if (dateOfBirth != null) {
+      _date = dateOfBirth;
+
+      final value = '${_date.day}/${_date.month}/${_date.year}';
+
+      _formKey.currentState!.fields['date_of_birth']!.didChange(value);
+    }
+  }
+
+  void generateRandomPassword() {
+    final password = ReusableHelper.generateRandomText(isSpecial: false);
+
+    _formKey.currentState!.fields['password']!.didChange(password);
+  }
+
+  void register(BuildContext context) {
+    FocusScope.of(context).unfocus();
+
+    _formKey.currentState!.save();
+
+    if (_formKey.currentState!.validate()) {
+      final value = _formKey.currentState!.value;
+
+      print(value);
+    }
   }
 }

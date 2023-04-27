@@ -12,7 +12,10 @@ class CustomField extends StatefulWidget {
   final String? hintText;
   final bool hasPrefixIcon;
   final IconData? prefixIcon;
+  final bool hasSuffixIcon;
+  final IconData? suffixIcon;
   final List<String? Function(String?)>? validators;
+  final VoidCallback? onTap;
 
   const CustomField({
     super.key,
@@ -24,7 +27,10 @@ class CustomField extends StatefulWidget {
     this.hintText,
     this.hasPrefixIcon = true,
     this.prefixIcon,
+    this.hasSuffixIcon = true,
+    this.suffixIcon,
     this.validators,
+    this.onTap,
   });
 
   @override
@@ -104,16 +110,17 @@ class _CustomFieldState extends State<CustomField> {
                 ),
               )
             : null,
-        suffixIcon: Padding(
-          padding: EdgeInsetsDirectional.only(
-            end: widget.hasPrefixIcon ? 4 : 0,
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.visibility_outlined),
-            iconSize: 16,
-            onPressed: () {},
-          ),
-        ),
+        suffixIcon: widget.hasSuffixIcon
+            ? Padding(
+                padding: EdgeInsetsDirectional.only(
+                  end: widget.hasPrefixIcon ? 4 : 0,
+                ),
+                child: Icon(
+                  widget.suffixIcon,
+                  size: 16,
+                ),
+              )
+            : null,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(
@@ -124,6 +131,7 @@ class _CustomFieldState extends State<CustomField> {
       validator: widget.validators != null
           ? FormBuilderValidators.compose(widget.validators!)
           : null,
+      onTap: widget.onTap,
     );
   }
 }
