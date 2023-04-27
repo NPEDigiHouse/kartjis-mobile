@@ -126,7 +126,15 @@ class LoginPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            // hide material banner
+                            scaffoldMessengerKey.currentState!
+                                .hideCurrentMaterialBanner();
+
+                            // navigate to register page
+                            navigatorKey.currentState!
+                                .pushNamed(forgotPasswordRoute);
+                          },
                           child: Text(
                             'Lupa Password?',
                             style:

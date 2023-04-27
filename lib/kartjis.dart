@@ -5,6 +5,7 @@ import 'package:kartjis_mobile_app/common/styles/input_style.dart';
 import 'package:kartjis_mobile_app/common/styles/text_style.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 import 'package:kartjis_mobile_app/common/utils/routes.dart';
+import 'package:kartjis_mobile_app/presentation/features/auth/forgot_password_page.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/login_page.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/register_page.dart';
 import 'package:kartjis_mobile_app/presentation/home_page.dart';
@@ -48,6 +49,11 @@ class KartjisApp extends StatelessWidget {
           case registerRoute:
             return MaterialPageRoute(
               builder: (_) => const RegisterPage(),
+              settings: settings,
+            );
+          case forgotPasswordRoute:
+            return MaterialPageRoute(
+              builder: (_) => ForgotPasswordPage(),
               settings: settings,
             );
           case homeRoute:

@@ -281,38 +281,38 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 40),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: Theme.of(context).textTheme.bodySmall,
-                            children: const <TextSpan>[
-                              TextSpan(
-                                text:
-                                    'Dengan mendaftar, Anda telah menyetujui setiap ',
-                              ),
-                              TextSpan(
-                                text: 'syarat dan ketentuan ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: primaryColor,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'yang berlaku.',
-                              ),
-                            ],
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodySmall,
+                      children: const <TextSpan>[
+                        TextSpan(
+                          text:
+                              'Dengan mendaftar, Anda telah menyetujui setiap ',
+                        ),
+                        TextSpan(
+                          text: 'syarat dan ketentuan ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: primaryColor,
                           ),
                         ),
-                        const SizedBox(height: 24),
-                        SizedBox(
-                          width: double.infinity,
-                          child: FilledButton(
-                            onPressed: () => register(context),
-                            child: const Text('Daftar Sekarang!'),
-                          ),
+                        TextSpan(
+                          text: 'yang berlaku.',
                         ),
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton(
+                      onPressed: () => register(context),
+                      child: const Text('Daftar Sekarang!'),
                     ),
                   ),
                 ],
