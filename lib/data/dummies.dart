@@ -1,2 +1,2 @@
-const defaultEmail = 'npekartjis01@gmail.com';
-const defaultPassword = 'papua123';
+const email = 'npekartjis@gmail.com';
+const password = 'papua123';

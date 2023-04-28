@@ -1,6 +1,7 @@
 import 'dart:math';
 
 class ReusableHelper {
+  /// Generate a random text.
   static String generateRandomText({
     int maxLength = 8,
     bool isLetter = true,

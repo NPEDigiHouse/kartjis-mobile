@@ -141,7 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
               child: Column(
                 children: <Widget>[
                   FormBuilder(
