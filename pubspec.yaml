@@ -34,6 +34,7 @@ dependencies:
   flutter_form_builder: 7.2.1
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.2.19
+  flutter_spinkit: ^5.1.0
   flutter_svg: ^2.0.5
   form_builder_validators: 8.1.1
 
@@ -80,6 +81,5 @@ flutter:
     - family: Titillium Web
       fonts:
         - asset: fonts/TitilliumWeb-Bold.ttf
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

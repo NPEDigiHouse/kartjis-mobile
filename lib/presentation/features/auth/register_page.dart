@@ -276,6 +276,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             FormBuilderValidators.required(
                               errorText: 'Bagian ini harus diisi',
                             ),
+                            FormBuilderValidators.minLength(
+                              8,
+                              errorText: 'No. HP minimal 8 digit',
+                            ),
                             FormBuilderValidators.integer(
                               errorText: 'No. HP tidak valid',
                             ),

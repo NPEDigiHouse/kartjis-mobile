@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const primaryColor = Color(0XFF2C1F63);
-const secondaryColor = Color(0XFFDF135C);
-const tertiaryColor = Color(0XFFFFC351);
-const backgroundColor = Color(0XFFF6F7F9);
-const scaffoldBackgroundColor = Color(0XFFFFFFFF);
-const primaryTextColor = Color(0XFF1E293B);
-const secondaryTextColor = Color(0XFFBBBEC1);
-const dividerColor = Color(0XFFE4E4E4);
-const errorColor = Color(0XFFD90429);
+const primaryColor = Color(0xFF2C1F63);
+const secondaryColor = Color(0xFFDF135C);
+const tertiaryColor = Color(0xFFFFC351);
+const backgroundColor = Color(0xFFF6F7F9);
+const scaffoldBackgroundColor = Color(0xFFFFFFFF);
+const primaryTextColor = Color(0xFF1E293B);
+const secondaryTextColor = Color(0xFFBBBEC1);
+const dividerColor = Color(0xFFE4E4E4);
+const errorColor = Color(0xFFD90429);
+const successColor = Color(0xFF3E9D9D);
 const onDisableColor = Color(0xFFC9C9C9);
 
 // Color scheme

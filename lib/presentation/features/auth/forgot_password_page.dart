@@ -7,10 +7,12 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kartjis_mobile_app/common/helpers/app_size.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
+import 'package:kartjis_mobile_app/common/utils/banner_utils.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 import 'package:kartjis_mobile_app/common/utils/routes.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/widgets/auth_app_bar.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/custom_field.dart';
+import 'package:kartjis_mobile_app/presentation/widgets/loading_indicator.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
@@ -69,6 +71,10 @@ class ForgotPasswordPage extends StatelessWidget {
                       FormBuilderValidators.required(
                         errorText: 'Bagian ini harus diisi',
                       ),
+                      FormBuilderValidators.minLength(
+                        8,
+                        errorText: 'No. HP minimal 8 digit',
+                      ),
                       FormBuilderValidators.integer(
                         errorText: 'No. HP tidak valid',
                       ),
@@ -102,19 +108,46 @@ class ForgotPasswordPage extends StatelessWidget {
     );
   }
 
-  void sendOTPCode(BuildContext context) {
+  Future<void> sendOTPCode(BuildContext context) async {
     FocusScope.of(context).unfocus();
 
     _formKey.currentState!.save();
 
     if (_formKey.currentState!.validate()) {
-      final phoneNumber = _formKey.currentState!.value['phone_number'];
+      final phoneNumber =
+          _formKey.currentState!.value['phone_number'] as String;
 
-      // navigate to otp page
+      // show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const LoadingIndicator(),
+      );
+
+      // proccess...
+      await Future.delayed(const Duration(seconds: 3));
+
+      // close loading indicator
+      navigatorKey.currentState!.pop();
+
+      // navigate to otp page if success
       navigatorKey.currentState!.pushNamed(
         otpRoute,
         arguments: phoneNumber,
       );
+
+      final successBanner = BannerUtils.createMaterialBanner(
+        contentText:
+            'Kode OTP telah terkirim ke nomor xxxxx${phoneNumber.substring(phoneNumber.length - 3)}',
+        foregroundColor: scaffoldBackgroundColor,
+        backgroundColor: successColor,
+        leadingIcon: Icons.check_circle_outlined,
+      );
+
+      // show material banner
+      scaffoldMessengerKey.currentState!
+        ..hideCurrentMaterialBanner()
+        ..showMaterialBanner(successBanner);
     }
   }
 }
