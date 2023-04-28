@@ -5,7 +5,12 @@ import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 
 class AuthAppBar extends StatelessWidget {
-  const AuthAppBar({super.key});
+  final bool delayWhenBackButtonPressed;
+
+  const AuthAppBar({
+    super.key,
+    this.delayWhenBackButtonPressed = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class AuthAppBar extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: IconButton(
-            onPressed: () => navigatorKey.currentState!.pop(),
+            onPressed: () => back(context),
             icon: const Icon(Icons.chevron_left_rounded),
             iconSize: 32,
             color: primaryColor,
@@ -49,5 +54,32 @@ class AuthAppBar extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void back(BuildContext context) {
+    if (delayWhenBackButtonPressed) {
+      // show transparent barrier
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        barrierColor: scaffoldBackgroundColor.withOpacity(0),
+        builder: (context) => const SizedBox.expand(),
+      );
+
+      // hide material banner if exist
+      scaffoldMessengerKey.currentState!.hideCurrentMaterialBanner();
+
+      // proccess
+      Future.delayed(const Duration(seconds: 1), () {
+        // close barrier
+        navigatorKey.currentState!.pop();
+      }).then((_) {
+        // back to previous page
+        navigatorKey.currentState!.pop();
+      });
+    } else {
+      // back to previous page
+      navigatorKey.currentState!.pop();
+    }
   }
 }

@@ -62,7 +62,7 @@ class ForgotPasswordPage extends StatelessWidget {
                   child: CustomField(
                     name: 'phone_number',
                     label: 'No. HP',
-                    hintText: '08xxxxx',
+                    hintText: '08xxx',
                     hasPrefixIcon: false,
                     hasSuffixIcon: false,
                     textInputType: TextInputType.number,
@@ -138,7 +138,7 @@ class ForgotPasswordPage extends StatelessWidget {
 
       final successBanner = BannerUtils.createMaterialBanner(
         contentText:
-            'Kode OTP telah terkirim ke nomor xxxxx${phoneNumber.substring(phoneNumber.length - 3)}',
+            'Kode OTP telah terkirim ke nomor xxx${phoneNumber.substring(phoneNumber.length - 4)}',
         foregroundColor: scaffoldBackgroundColor,
         backgroundColor: successColor,
         leadingIcon: Icons.check_circle_outlined,

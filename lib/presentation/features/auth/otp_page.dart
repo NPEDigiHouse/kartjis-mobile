@@ -25,7 +25,11 @@ class OTPPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const AuthAppBar(),
+              const SafeArea(
+                child: AuthAppBar(
+                  delayWhenBackButtonPressed: true,
+                ),
+              ),
               const SizedBox(height: 64),
               Center(
                 child: SvgPicture.asset(
@@ -42,7 +46,7 @@ class OTPPage extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'Kode OTP telah terkirim ke nomor xxxxx${phoneNumber.substring(phoneNumber.length - 3)} melalui pesan. Masukkan kode tersebut untuk melanjutkan.',
+                'Kode OTP telah terkirim ke nomor xxx${phoneNumber.substring(phoneNumber.length - 4)} melalui pesan. Masukkan kode tersebut untuk melanjutkan.',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       height: 1.5,
                       color: secondaryTextColor,

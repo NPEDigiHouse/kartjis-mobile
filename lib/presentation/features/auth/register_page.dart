@@ -267,7 +267,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         CustomField(
                           name: 'phone_number',
                           label: 'No. HP',
-                          hintText: '08xxxxx',
+                          hintText: '08xxx',
                           hasPrefixIcon: false,
                           hasSuffixIcon: false,
                           textInputType: TextInputType.number,
