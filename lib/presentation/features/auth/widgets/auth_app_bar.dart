@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
-import 'package:kartjis_mobile_app/common/utils/keys.dart';
+import 'package:kartjis_mobile_app/common/utils/utilities.dart';
 
 class AuthAppBar extends StatelessWidget {
   final bool delayWhenBackButtonPressed;
@@ -24,7 +24,10 @@ class AuthAppBar extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: IconButton(
-            onPressed: () => back(context),
+            onPressed: () => Utilities.popPage(
+              context: context,
+              withDelay: delayWhenBackButtonPressed,
+            ),
             icon: const Icon(Icons.chevron_left_rounded),
             iconSize: 32,
             color: primaryColor,
@@ -54,32 +57,5 @@ class AuthAppBar extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void back(BuildContext context) {
-    if (delayWhenBackButtonPressed) {
-      // show transparent barrier
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        barrierColor: scaffoldBackgroundColor.withOpacity(0),
-        builder: (context) => const SizedBox.expand(),
-      );
-
-      // hide material banner if exist
-      scaffoldMessengerKey.currentState!.hideCurrentMaterialBanner();
-
-      // proccess
-      Future.delayed(const Duration(seconds: 1), () {
-        // close barrier
-        navigatorKey.currentState!.pop();
-      }).then((_) {
-        // back to previous page
-        navigatorKey.currentState!.pop();
-      });
-    } else {
-      // back to previous page
-      navigatorKey.currentState!.pop();
-    }
   }
 }

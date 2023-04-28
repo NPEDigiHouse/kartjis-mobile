@@ -360,9 +360,9 @@ class _RegisterPageState extends State<RegisterPage> {
     _formKey.currentState!.save();
 
     if (_formKey.currentState!.validate()) {
-      final value = _formKey.currentState!.value;
+      final data = _formKey.currentState!.value;
 
-      print(value);
+      print(data);
     }
   }
 }

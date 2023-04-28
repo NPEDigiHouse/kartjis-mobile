@@ -5,6 +5,7 @@ const loginRoute = '/login';
 const registerRoute = '/register';
 const forgotPasswordRoute = '/forgot-password';
 const otpRoute = '/otp';
+const resetPasswordRoute = '/reset-password';
 const homeRoute = '/home';
 
 // Register the RouteObserver as a navigation observer

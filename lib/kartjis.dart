@@ -9,6 +9,7 @@ import 'package:kartjis_mobile_app/presentation/features/auth/forgot_password_pa
 import 'package:kartjis_mobile_app/presentation/features/auth/login_page.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/otp_page.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/register_page.dart';
+import 'package:kartjis_mobile_app/presentation/features/auth/reset_password_page.dart';
 import 'package:kartjis_mobile_app/presentation/home_page.dart';
 
 class KartjisApp extends StatelessWidget {
@@ -62,6 +63,11 @@ class KartjisApp extends StatelessWidget {
 
             return MaterialPageRoute(
               builder: (_) => OTPPage(phoneNumber: phoneNumber),
+              settings: settings,
+            );
+          case resetPasswordRoute:
+            return MaterialPageRoute(
+              builder: (_) => const ResetPasswordPage(),
               settings: settings,
             );
           case homeRoute:
