@@ -296,10 +296,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: const <TextSpan>[
                         TextSpan(
                           text:
-                              'Dengan mendaftar, Anda telah menyetujui setiap ',
+                              'Dengan mendaftar, Anda telah menyetujui setiap\t',
                         ),
                         TextSpan(
-                          text: 'syarat dan ketentuan ',
+                          text: 'syarat dan ketentuan\t',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: primaryColor,
@@ -362,7 +362,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (_formKey.currentState!.validate()) {
       final data = _formKey.currentState!.value;
 
-      print(data);
+      debugPrint(data.toString());
     }
   }
 }

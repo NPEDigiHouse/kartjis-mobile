@@ -187,7 +187,7 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Belum punya akun? Buat akun baru ',
+                          'Belum punya akun? Buat akun baru\t',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         GestureDetector(

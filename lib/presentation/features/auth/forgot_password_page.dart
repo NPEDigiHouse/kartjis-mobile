@@ -22,86 +22,86 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: AppSize.getAppHeight(context),
-          ),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const AuthAppBar(),
-                const SizedBox(height: 64),
-                Center(
-                  child: SvgPicture.asset(
-                    AssetPath.getVector('forgot_password.svg'),
-                  ),
+      body: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: AppSize.getAppHeight(context),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SafeArea(
+                child: AuthAppBar(),
+              ),
+              const SizedBox(height: 64),
+              Center(
+                child: SvgPicture.asset(
+                  AssetPath.getVector('forgot_password.svg'),
                 ),
-                const SizedBox(height: 36),
-                Text(
-                  'Lupa\nPassword?',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: primaryColor,
-                      ),
+              ),
+              const SizedBox(height: 36),
+              Text(
+                'Lupa\nPassword?',
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: primaryColor,
+                    ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Masukkan No. HP yang telah terdaftar dan Kami akan mengirimkan konfirmasi untuk me-reset password Anda.',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      height: 1.5,
+                      color: secondaryTextColor,
+                    ),
+              ),
+              const SizedBox(height: 24),
+              FormBuilder(
+                key: _formKey,
+                autoFocusOnValidationFailure: true,
+                child: CustomField(
+                  name: 'phone_number',
+                  label: 'No. HP',
+                  hintText: '08xxx',
+                  hasPrefixIcon: false,
+                  hasSuffixIcon: false,
+                  textInputType: TextInputType.number,
+                  textInputAction: TextInputAction.done,
+                  validators: [
+                    FormBuilderValidators.required(
+                      errorText: 'Bagian ini harus diisi',
+                    ),
+                    FormBuilderValidators.minLength(
+                      8,
+                      errorText: 'No. HP minimal 8 digit',
+                    ),
+                    FormBuilderValidators.integer(
+                      errorText: 'No. HP tidak valid',
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  'Masukkan No. HP yang telah terdaftar dan Kami akan mengirimkan konfirmasi untuk me-reset password Anda.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        height: 1.5,
-                        color: secondaryTextColor,
-                      ),
-                ),
-                const SizedBox(height: 24),
-                FormBuilder(
-                  key: _formKey,
-                  autoFocusOnValidationFailure: true,
-                  child: CustomField(
-                    name: 'phone_number',
-                    label: 'No. HP',
-                    hintText: '08xxx',
-                    hasPrefixIcon: false,
-                    hasSuffixIcon: false,
-                    textInputType: TextInputType.number,
-                    textInputAction: TextInputAction.done,
-                    validators: [
-                      FormBuilderValidators.required(
-                        errorText: 'Bagian ini harus diisi',
-                      ),
-                      FormBuilderValidators.minLength(
-                        8,
-                        errorText: 'No. HP minimal 8 digit',
-                      ),
-                      FormBuilderValidators.integer(
-                        errorText: 'No. HP tidak valid',
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 32),
-                SizedBox(
-                  height: 44,
-                  width: double.infinity,
-                  child: FilledButton.icon(
-                    onPressed: () => sendOTPCode(context),
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Transform.rotate(
-                        angle: -45 * math.pi / 180,
-                        child: const Icon(
-                          Icons.send_rounded,
-                          size: 20,
-                        ),
+              ),
+              const SizedBox(height: 32),
+              SizedBox(
+                height: 44,
+                width: double.infinity,
+                child: FilledButton.icon(
+                  onPressed: () => sendOTPCode(context),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Transform.rotate(
+                      angle: -45 * math.pi / 180,
+                      child: const Icon(
+                        Icons.send_rounded,
+                        size: 20,
                       ),
                     ),
-                    label: const Text('Kirim Kode OTP'),
                   ),
+                  label: const Text('Kirim Kode OTP'),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -144,7 +144,7 @@ class ForgotPasswordPage extends StatelessWidget {
         leadingIcon: Icons.check_circle_outlined,
       );
 
-      // show material banner
+      // show material banner at next page
       scaffoldMessengerKey.currentState!
         ..hideCurrentMaterialBanner()
         ..showMaterialBanner(successBanner);
