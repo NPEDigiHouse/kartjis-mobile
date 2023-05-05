@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class EventPage extends StatelessWidget {
+  const EventPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kartjis'),
+        title: const Text('EventPage'),
       ),
       body: const Center(
-        child: Text('Kartjis Mobile App'),
+        child: Text('EventPage'),
       ),
     );
   }

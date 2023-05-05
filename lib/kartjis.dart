@@ -10,7 +10,7 @@ import 'package:kartjis_mobile_app/presentation/features/auth/login_page.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/otp_page.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/register_page.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/reset_password_page.dart';
-import 'package:kartjis_mobile_app/presentation/home_page.dart';
+import 'package:kartjis_mobile_app/presentation/main_screen.dart';
 
 class KartjisApp extends StatelessWidget {
   const KartjisApp({super.key});
@@ -70,9 +70,9 @@ class KartjisApp extends StatelessWidget {
               builder: (_) => const ResetPasswordPage(),
               settings: settings,
             );
-          case homeRoute:
+          case mainRoute:
             return MaterialPageRoute(
-              builder: (_) => const HomePage(),
+              builder: (_) => const MainScreen(),
               settings: settings,
             );
           default:

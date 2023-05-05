@@ -245,7 +245,7 @@ class LoginPage extends StatelessWidget {
         scaffoldMessengerKey.currentState!.hideCurrentMaterialBanner();
 
         // navigate to main page
-        navigatorKey.currentState!.pushReplacementNamed(homeRoute);
+        navigatorKey.currentState!.pushReplacementNamed(mainRoute);
       }
     }
   }
