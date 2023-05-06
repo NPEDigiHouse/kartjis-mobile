@@ -228,7 +228,7 @@ class LoginPage extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       final data = _formKey.currentState!.value;
 
-      if (data['email'] != email || data['password'] != password) {
+      if (data['email'] != user.email || data['password'] != user.password) {
         final errorBanner = BannerUtils.createMaterialBanner(
           contentText: 'Email atau Password salah!',
           foregroundColor: scaffoldBackgroundColor,

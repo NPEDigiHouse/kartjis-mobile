@@ -1,2 +1,17 @@
-const email = 'npekartjis@gmail.com';
-const password = 'papua123';
+class User {
+  final String name;
+  final String email;
+  final String password;
+
+  User({
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+}
+
+final user = User(
+  name: 'Masloman',
+  email: 'test@gmail.com',
+  password: 'test',
+);
