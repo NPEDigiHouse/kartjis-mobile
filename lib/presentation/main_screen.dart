@@ -43,23 +43,18 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: _selectedIndex,
-      builder: (_, __, ___) {
-        return Scaffold(
-          body: PageView(
-            physics: const NeverScrollableScrollPhysics(),
-            clipBehavior: Clip.none,
-            controller: _pageController,
-            children: _pages,
-            onPageChanged: (index) => _selectedIndex.value = index,
-          ),
-          bottomNavigationBar: CustomBottomNavigationBar(
-            selectedIndex: _selectedIndex,
-            pageController: _pageController,
-          ),
-        );
-      },
+    return Scaffold(
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        clipBehavior: Clip.none,
+        controller: _pageController,
+        children: _pages,
+        onPageChanged: (index) => _selectedIndex.value = index,
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        pageController: _pageController,
+      ),
     );
   }
 }

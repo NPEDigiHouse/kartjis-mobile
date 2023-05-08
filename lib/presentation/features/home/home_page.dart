@@ -14,20 +14,34 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-  late final ValueNotifier<String> _query;
+  late final ValueNotifier<String> query;
+  late final ValueNotifier<String> eventType;
+
+  late final List<String> eventTypes;
 
   @override
   void initState() {
     super.initState();
 
-    _query = ValueNotifier('');
+    eventTypes = [
+      'Semua',
+      'Konser',
+      'Bazar',
+      'Seminar',
+      'Pertandingan',
+      'Lainnya',
+    ];
+
+    query = ValueNotifier('');
+    eventType = ValueNotifier(eventTypes[0]);
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    _query.dispose();
+    query.dispose();
+    eventType.dispose();
   }
 
   @override
@@ -37,6 +51,7 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
+          floatHeaderSlivers: true,
           headerSliverBuilder: (_, __) {
             return <Widget>[
               SliverToBoxAdapter(
@@ -79,31 +94,22 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               SliverAppBar(
-                pinned: true,
+                snap: true,
+                floating: true,
                 elevation: 0,
                 automaticallyImplyLeading: false,
-                toolbarHeight: kToolbarHeight + 48,
+                toolbarHeight: kToolbarHeight + 72,
                 backgroundColor: scaffoldBackgroundColor.withAlpha(200),
                 flexibleSpace: ClipRect(
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
                     child: Container(
                       color: Colors.transparent,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
-                        child: Column(
-                          children: <Widget>[
-                            ValueListenableBuilder(
-                              valueListenable: _query,
-                              builder: (context, value, child) {
-                                return SearchField(
-                                  text: value,
-                                  onChanged: (query) => _query.value = query,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        children: <Widget>[
+                          _buildSearchField(),
+                          _buildChoiceChips(),
+                        ],
                       ),
                     ),
                   ),
@@ -113,7 +119,7 @@ class _HomePageState extends State<HomePage>
           },
           body: SingleChildScrollView(
             child: Column(
-              children: List<Text>.generate(20, (index) {
+              children: List<Text>.generate(30, (index) {
                 return Text(
                   'Hello world',
                   style: Theme.of(context).textTheme.headlineMedium,
@@ -122,6 +128,58 @@ class _HomePageState extends State<HomePage>
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Padding _buildSearchField() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 4),
+      child: ValueListenableBuilder(
+        valueListenable: query,
+        builder: (context, value, child) {
+          return SearchField(
+            text: value,
+            onChanged: (value) => query.value = value,
+          );
+        },
+      ),
+    );
+  }
+
+  SizedBox _buildChoiceChips() {
+    return SizedBox(
+      height: 64,
+      child: ListView.separated(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 4),
+        scrollDirection: Axis.horizontal,
+        itemCount: eventTypes.length,
+        itemBuilder: (context, index) {
+          return ValueListenableBuilder(
+            valueListenable: eventType,
+            builder: (context, type, child) {
+              var isSelected = type == eventTypes[index];
+
+              return ChoiceChip(
+                label: Text(eventTypes[index]),
+                labelPadding: const EdgeInsets.symmetric(horizontal: 12),
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: primaryColor),
+                selectedColor: primaryColor.withOpacity(.2),
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                side: isSelected ? null : const BorderSide(color: dividerColor),
+                selected: isSelected,
+                onSelected: (_) => eventType.value = eventTypes[index],
+              );
+            },
+          );
+        },
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
       ),
     );
   }
