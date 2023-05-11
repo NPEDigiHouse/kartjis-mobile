@@ -8,7 +8,7 @@ import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/common/utils/banner_utils.dart';
 import 'package:kartjis_mobile_app/common/utils/keys.dart';
 import 'package:kartjis_mobile_app/common/utils/routes.dart';
-import 'package:kartjis_mobile_app/data/dummies.dart';
+import 'package:kartjis_mobile_app/data/dummies/user.dart';
 import 'package:kartjis_mobile_app/presentation/features/auth/widgets/custom_clip_path.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/custom_field.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/password_field.dart';

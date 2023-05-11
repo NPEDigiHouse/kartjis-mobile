@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
@@ -37,6 +38,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   flutter_svg: ^1.1.6
   form_builder_validators: 8.1.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

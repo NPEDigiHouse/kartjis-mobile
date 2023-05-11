@@ -41,62 +41,65 @@ class _SearchFieldState extends State<SearchField> {
   Widget build(BuildContext context) {
     return Focus(
       onFocusChange: (value) => isFocus.value = value,
-      child: TextField(
-        controller: controller,
-        onChanged: widget.onChanged,
-        textInputAction: TextInputAction.search,
-        textAlignVertical: TextAlignVertical.center,
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              height: 1.5,
-              color: primaryColor,
-            ),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.zero,
-          hintText: 'Cari event',
-          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+      child: SizedBox(
+        height: 40,
+        child: TextField(
+          controller: controller,
+          onChanged: widget.onChanged,
+          textInputAction: TextInputAction.search,
+          textAlignVertical: TextAlignVertical.center,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 height: 1.5,
-                color: secondaryTextColor,
+                color: primaryColor,
               ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: dividerColor,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: primaryColor,
-            ),
-          ),
-          prefixIcon: ValueListenableBuilder(
-            valueListenable: isFocus,
-            builder: (context, isFocus, child) {
-              return Padding(
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 10,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.zero,
+            hintText: 'Cari event',
+            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  height: 1.5,
+                  color: secondaryTextColor,
                 ),
-                child: SvgPicture.asset(
-                  AssetPath.getIcon('search_outlined.svg'),
-                  width: 20,
-                  color: isFocus ? primaryColor : secondaryTextColor,
-                ),
-              );
-            },
-          ),
-          suffixIcon: widget.text.isEmpty
-              ? const SizedBox()
-              : IconButton(
-                  icon: const Icon(
-                    Icons.close_rounded,
-                    size: 16,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: dividerColor,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: primaryColor,
+              ),
+            ),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 10,
+              ),
+              child: ValueListenableBuilder(
+                valueListenable: isFocus,
+                builder: (context, isFocus, child) {
+                  return SvgPicture.asset(
+                    AssetPath.getIcon('search_outlined.svg'),
+                    width: 20,
+                    color: isFocus ? primaryColor : secondaryTextColor,
+                  );
+                },
+              ),
+            ),
+            suffixIcon: widget.text.isEmpty
+                ? const SizedBox()
+                : IconButton(
+                    icon: const Icon(
+                      Icons.close_rounded,
+                      size: 16,
+                    ),
+                    onPressed: () {
+                      controller.clear();
+                      widget.onChanged('');
+                    },
                   ),
-                  onPressed: () {
-                    controller.clear();
-                    widget.onChanged('');
-                  },
-                ),
+          ),
         ),
       ),
     );
