@@ -309,7 +309,6 @@ class _HomePageState extends State<HomePage>
               curve: Curves.easeOut,
               width: 234,
               height: isShowed ? 184 : 0,
-              padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
                 color: scaffoldBackgroundColor,
                 borderRadius: BorderRadius.vertical(
@@ -326,6 +325,7 @@ class _HomePageState extends State<HomePage>
 
   SingleChildScrollView buildCardContent(Concert concert) {
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,7 +408,6 @@ class _HomePageState extends State<HomePage>
           ),
           const SizedBox(height: 6),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const Icon(
                 Icons.location_on_rounded,
