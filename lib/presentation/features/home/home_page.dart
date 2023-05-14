@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/data/dummies/concert.dart';
 import 'package:kartjis_mobile_app/data/dummies/user.dart';
+import 'package:kartjis_mobile_app/presentation/features/home/widgets/carousel_card.dart';
+import 'package:kartjis_mobile_app/presentation/features/home/widgets/vertical_card.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/search_field.dart';
 
 class HomePage extends StatefulWidget {
@@ -161,12 +162,13 @@ class _HomePageState extends State<HomePage>
                   itemBuilder: (context, index, realIndex) {
                     return ValueListenableBuilder(
                       valueListenable: showedIndex,
-                      builder: ((context, value, child) {
-                        return buildConcertCard(
+                      builder: (context, value, child) {
+                        return CarouselCard(
+                          index: index,
                           concert: concerts[index],
                           isShowed: value == index,
                         );
-                      }),
+                      },
                     );
                   },
                   options: CarouselOptions(
@@ -218,6 +220,21 @@ class _HomePageState extends State<HomePage>
                         ),
                       ),
                     ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 368,
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return VerticalCard(concert: concerts[index]);
+                    },
+                    separatorBuilder: (_, __) {
+                      return const SizedBox(width: 12);
+                    },
+                    itemCount: concerts.length,
                   ),
                 ),
               ],
@@ -276,159 +293,6 @@ class _HomePageState extends State<HomePage>
           );
         },
         separatorBuilder: (_, __) => const SizedBox(width: 8),
-      ),
-    );
-  }
-
-  Card buildConcertCard({
-    required Concert concert,
-    required bool isShowed,
-  }) {
-    return Card(
-      elevation: 8,
-      shadowColor: Colors.black.withOpacity(.4),
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: InkWell(
-        onTap: () {},
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                concert.posterPath,
-                fit: BoxFit.cover,
-                width: 234,
-              ),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut,
-              width: 234,
-              height: isShowed ? 184 : 0,
-              decoration: const BoxDecoration(
-                color: scaffoldBackgroundColor,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(16),
-                ),
-              ),
-              child: buildCardContent(concert),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  SingleChildScrollView buildCardContent(Concert concert) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Organized by',
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: tertiaryColor,
-                          letterSpacing: 0,
-                        ),
-                  ),
-                  const SizedBox(height: 2),
-                  Image.asset(
-                    concert.organizerLogoPath,
-                    height: 20,
-                  ),
-                ],
-              ),
-              Expanded(
-                child: RichText(
-                  textAlign: TextAlign.end,
-                  text: TextSpan(
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      color: secondaryColor,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '${concert.price.split(" ")[0]}\t',
-                        style: const TextStyle(fontSize: 10),
-                      ),
-                      TextSpan(
-                        text: concert.price.split(' ')[1],
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            concert.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.event_rounded,
-                size: 16,
-                color: secondaryTextColor,
-              ),
-              const SizedBox(width: 5),
-              Flexible(
-                child: Text(
-                  DateFormat('dd MMMM y').format(concert.date),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: secondaryTextColor),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.location_on_rounded,
-                size: 16,
-                color: secondaryTextColor,
-              ),
-              const SizedBox(width: 5),
-              Flexible(
-                child: Text(
-                  concert.place,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: secondaryTextColor),
-                ),
-              ),
-            ],
-          )
-        ],
       ),
     );
   }
