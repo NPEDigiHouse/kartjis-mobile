@@ -6,6 +6,7 @@ import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/data/dummies/concert.dart';
 import 'package:kartjis_mobile_app/data/dummies/user.dart';
 import 'package:kartjis_mobile_app/presentation/features/home/widgets/carousel_card.dart';
+import 'package:kartjis_mobile_app/presentation/features/home/widgets/horizontal_card.dart';
 import 'package:kartjis_mobile_app/presentation/features/home/widgets/vertical_card.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/search_field.dart';
 
@@ -129,7 +130,7 @@ class _HomePageState extends State<HomePage>
           },
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(0, 8, 0, 24),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -180,51 +181,13 @@ class _HomePageState extends State<HomePage>
                   ),
                 ),
                 const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Event Terdekat',
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: primaryColor,
-                                  ),
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(
-                              'Lihat lebih banyak',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: primaryColor,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            const Icon(
-                              Icons.chevron_right_rounded,
-                              color: primaryColor,
-                              size: 16,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                buildTitleSection(
+                  title: 'Event Terdekat',
+                  onPressedShowMoreText: () {},
                 ),
                 const SizedBox(height: 12),
                 SizedBox(
-                  height: 368,
+                  height: 360,
                   child: ListView.separated(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     scrollDirection: Axis.horizontal,
@@ -237,6 +200,15 @@ class _HomePageState extends State<HomePage>
                     itemCount: concerts.length,
                   ),
                 ),
+                const SizedBox(height: 16),
+                buildTitleSection(
+                  title: 'Event Terbaru',
+                  onPressedShowMoreText: () {},
+                ),
+                const SizedBox(height: 12),
+                ...concerts.map((concert) {
+                  return HorizontalCard(concert: concert);
+                }).toList(),
               ],
             ),
           ),
@@ -293,6 +265,50 @@ class _HomePageState extends State<HomePage>
           );
         },
         separatorBuilder: (_, __) => const SizedBox(width: 8),
+      ),
+    );
+  }
+
+  Padding buildTitleSection({
+    required String title,
+    required VoidCallback? onPressedShowMoreText,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: primaryColor,
+                  ),
+            ),
+          ),
+          const SizedBox(width: 6),
+          GestureDetector(
+            onTap: onPressedShowMoreText,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'Lihat lebih banyak',
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: primaryColor,
+                        letterSpacing: 0,
+                      ),
+                ),
+                const Icon(
+                  Icons.chevron_right_rounded,
+                  color: primaryColor,
+                  size: 16,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

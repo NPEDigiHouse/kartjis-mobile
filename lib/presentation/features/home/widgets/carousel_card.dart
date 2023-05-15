@@ -123,7 +123,7 @@ class CarouselCard extends StatelessWidget {
                                         letterSpacing: 0,
                                       ),
                                 ),
-                                const SizedBox(height: 2),
+                                const SizedBox(height: 4),
                                 Image.asset(
                                   concert.organizerLogoPath,
                                   height: 20,

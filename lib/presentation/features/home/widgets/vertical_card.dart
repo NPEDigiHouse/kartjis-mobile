@@ -17,13 +17,6 @@ class VerticalCard extends StatelessWidget {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  concert.posterPath,
-                  fit: BoxFit.cover,
-                ),
-              ),
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
@@ -36,6 +29,20 @@ class VerticalCard extends StatelessWidget {
                         color: Colors.black.withOpacity(.25),
                       ),
                     ],
+                  ),
+                ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  concert.posterPath,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
                     gradient: LinearGradient(
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
@@ -83,7 +90,7 @@ class VerticalCard extends StatelessWidget {
                               letterSpacing: 0,
                             ),
                       ),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 4),
                       Image.asset(
                         concert.organizerLogoPath,
                         height: 20,
@@ -95,7 +102,7 @@ class VerticalCard extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(4, 20, 4, 16),
+            padding: const EdgeInsets.fromLTRB(4, 20, 4, 0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
