@@ -32,7 +32,7 @@ final concerts = <Concert>[
   ),
   Concert(
     title: 'Justin Bieber World Tour 2023: GHOST',
-    date: DateTime(2023, 7, 13),
+    date: DateTime(2023, 2, 13),
     place: 'Mall Phinisi Point, Makassar',
     price: 'Rp 810.000',
     posterPath: AssetPath.getImage('poster2.jpg'),
@@ -59,7 +59,7 @@ final concerts = <Concert>[
   ),
   Concert(
     title: 'RED VELVET: REDMARE',
-    date: DateTime(2023, 10, 2),
+    date: DateTime(2023, 7, 9),
     place: 'Mall Phinisi Point, Makassar',
     price: 'Rp 649.000',
     posterPath: AssetPath.getImage('poster5.jpg'),

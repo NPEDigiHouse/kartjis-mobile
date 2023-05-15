@@ -1,11 +1,13 @@
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/data/dummies/concert.dart';
 import 'package:kartjis_mobile_app/data/dummies/user.dart';
+import 'package:kartjis_mobile_app/presentation/features/home/widgets/carousel_card.dart';
+import 'package:kartjis_mobile_app/presentation/features/home/widgets/horizontal_card.dart';
+import 'package:kartjis_mobile_app/presentation/features/home/widgets/vertical_card.dart';
 import 'package:kartjis_mobile_app/presentation/widgets/search_field.dart';
 
 class HomePage extends StatefulWidget {
@@ -128,7 +130,7 @@ class _HomePageState extends State<HomePage>
           },
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(0, 8, 0, 24),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -161,12 +163,13 @@ class _HomePageState extends State<HomePage>
                   itemBuilder: (context, index, realIndex) {
                     return ValueListenableBuilder(
                       valueListenable: showedIndex,
-                      builder: ((context, value, child) {
-                        return buildConcertCard(
+                      builder: (context, value, child) {
+                        return CarouselCard(
+                          index: index,
                           concert: concerts[index],
                           isShowed: value == index,
                         );
-                      }),
+                      },
                     );
                   },
                   options: CarouselOptions(
@@ -178,48 +181,34 @@ class _HomePageState extends State<HomePage>
                   ),
                 ),
                 const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Event Terdekat',
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: primaryColor,
-                                  ),
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(
-                              'Lihat lebih banyak',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: primaryColor,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            const Icon(
-                              Icons.chevron_right_rounded,
-                              color: primaryColor,
-                              size: 16,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                buildTitleSection(
+                  title: 'Event Terdekat',
+                  onPressedShowMoreText: () {},
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 360,
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return VerticalCard(concert: concerts[index]);
+                    },
+                    separatorBuilder: (_, __) {
+                      return const SizedBox(width: 12);
+                    },
+                    itemCount: concerts.length,
                   ),
                 ),
+                const SizedBox(height: 16),
+                buildTitleSection(
+                  title: 'Event Terbaru',
+                  onPressedShowMoreText: () {},
+                ),
+                const SizedBox(height: 12),
+                ...concerts.map((concert) {
+                  return HorizontalCard(concert: concert);
+                }).toList(),
               ],
             ),
           ),
@@ -280,154 +269,45 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Card buildConcertCard({
-    required Concert concert,
-    required bool isShowed,
+  Padding buildTitleSection({
+    required String title,
+    required VoidCallback? onPressedShowMoreText,
   }) {
-    return Card(
-      elevation: 8,
-      shadowColor: Colors.black.withOpacity(.4),
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: InkWell(
-        onTap: () {},
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                concert.posterPath,
-                fit: BoxFit.cover,
-                width: 234,
-              ),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut,
-              width: 234,
-              height: isShowed ? 184 : 0,
-              decoration: const BoxDecoration(
-                color: scaffoldBackgroundColor,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(16),
-                ),
-              ),
-              child: buildCardContent(concert),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  SingleChildScrollView buildCardContent(Concert concert) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Organized by',
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: tertiaryColor,
-                          letterSpacing: 0,
-                        ),
+          Expanded(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: primaryColor,
                   ),
-                  const SizedBox(height: 2),
-                  Image.asset(
-                    concert.organizerLogoPath,
-                    height: 20,
-                  ),
-                ],
-              ),
-              Expanded(
-                child: RichText(
-                  textAlign: TextAlign.end,
-                  text: TextSpan(
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      color: secondaryColor,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '${concert.price.split(" ")[0]}\t',
-                        style: const TextStyle(fontSize: 10),
+            ),
+          ),
+          const SizedBox(width: 6),
+          GestureDetector(
+            onTap: onPressedShowMoreText,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'Lihat lebih banyak',
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: primaryColor,
+                        letterSpacing: 0,
                       ),
-                      TextSpan(
-                        text: concert.price.split(' ')[1],
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            concert.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.event_rounded,
-                size: 16,
-                color: secondaryTextColor,
-              ),
-              const SizedBox(width: 5),
-              Flexible(
-                child: Text(
-                  DateFormat('dd MMMM y').format(concert.date),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: secondaryTextColor),
+                const Icon(
+                  Icons.chevron_right_rounded,
+                  color: primaryColor,
+                  size: 16,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 6),
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.location_on_rounded,
-                size: 16,
-                color: secondaryTextColor,
-              ),
-              const SizedBox(width: 5),
-              Flexible(
-                child: Text(
-                  concert.place,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: secondaryTextColor),
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );

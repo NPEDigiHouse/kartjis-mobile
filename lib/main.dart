@@ -12,7 +12,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-// Change status bar and navigation color
+  // Change status bar and navigation color
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
