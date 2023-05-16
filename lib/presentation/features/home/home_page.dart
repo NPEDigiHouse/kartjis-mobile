@@ -3,6 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:kartjis_mobile_app/common/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
+import 'package:kartjis_mobile_app/common/utils/keys.dart';
+import 'package:kartjis_mobile_app/common/utils/routes.dart';
 import 'package:kartjis_mobile_app/data/dummies/concert.dart';
 import 'package:kartjis_mobile_app/data/dummies/user.dart';
 import 'package:kartjis_mobile_app/presentation/features/home/widgets/carousel_card.dart';
@@ -91,7 +93,9 @@ class _HomePageState extends State<HomePage>
                       ),
                       const SizedBox(width: 24),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          navigatorKey.currentState!.pushNamed(profileRoute);
+                        },
                         child: CircleAvatar(
                           radius: 20,
                           backgroundColor: backgroundColor,
