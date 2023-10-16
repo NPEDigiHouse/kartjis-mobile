@@ -146,7 +146,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: <Widget>[
                   FormBuilder(
                     key: _formKey,
-                    autoFocusOnValidationFailure: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
@@ -357,9 +356,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void register(BuildContext context) {
     FocusScope.of(context).unfocus();
 
-    _formKey.currentState!.save();
-
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.saveAndValidate()) {
       final data = _formKey.currentState!.value;
 
       debugPrint(data.toString());

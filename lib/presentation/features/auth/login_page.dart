@@ -96,7 +96,6 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     FormBuilder(
                       key: _formKey,
-                      autoFocusOnValidationFailure: true,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
@@ -223,9 +222,7 @@ class LoginPage extends StatelessWidget {
   void login(BuildContext context) {
     FocusScope.of(context).unfocus();
 
-    _formKey.currentState!.save();
-
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.saveAndValidate()) {
       final data = _formKey.currentState!.value;
 
       if (data['email'] != user.email || data['password'] != user.password) {

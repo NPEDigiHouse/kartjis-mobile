@@ -59,7 +59,6 @@ class ForgotPasswordPage extends StatelessWidget {
               const SizedBox(height: 24),
               FormBuilder(
                 key: _formKey,
-                autoFocusOnValidationFailure: true,
                 child: CustomField(
                   name: 'phone_number',
                   label: 'No. HP',
@@ -111,9 +110,7 @@ class ForgotPasswordPage extends StatelessWidget {
   Future<void> sendOTPCode(BuildContext context) async {
     FocusScope.of(context).unfocus();
 
-    _formKey.currentState!.save();
-
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.saveAndValidate()) {
       final phoneNumber =
           _formKey.currentState!.value['phone_number'] as String;
 

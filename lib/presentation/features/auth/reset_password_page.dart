@@ -78,7 +78,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               const SizedBox(height: 24),
               FormBuilder(
                 key: _formKey,
-                autoFocusOnValidationFailure: true,
                 child: Column(
                   children: <Widget>[
                     PasswordField(
@@ -154,9 +153,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Future<void> resetPassword(BuildContext context) async {
     FocusScope.of(context).unfocus();
 
-    _formKey.currentState!.save();
-
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.saveAndValidate()) {
       // show loading indicator
       showDialog(
         context: context,
