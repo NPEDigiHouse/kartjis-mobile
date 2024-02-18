@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
+import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/kartjis.dart';
 
 void main() async {

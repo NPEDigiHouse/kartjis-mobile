@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kartjis_mobile_app/common/styles/button_style.dart';
-import 'package:kartjis_mobile_app/common/styles/color_scheme.dart';
-import 'package:kartjis_mobile_app/common/styles/input_style.dart';
-import 'package:kartjis_mobile_app/common/styles/text_style.dart';
-import 'package:kartjis_mobile_app/common/utils/keys.dart';
-import 'package:kartjis_mobile_app/common/utils/routes.dart';
-import 'package:kartjis_mobile_app/presentation/features/auth/forgot_password_page.dart';
-import 'package:kartjis_mobile_app/presentation/features/auth/login_page.dart';
-import 'package:kartjis_mobile_app/presentation/features/auth/otp_page.dart';
-import 'package:kartjis_mobile_app/presentation/features/auth/register_page.dart';
-import 'package:kartjis_mobile_app/presentation/features/auth/reset_password_page.dart';
-import 'package:kartjis_mobile_app/presentation/features/profile/profile_page.dart';
-import 'package:kartjis_mobile_app/presentation/main_screen.dart';
+import 'package:kartjis_mobile_app/cores/styles/button_style.dart';
+import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
+import 'package:kartjis_mobile_app/cores/styles/input_style.dart';
+import 'package:kartjis_mobile_app/cores/styles/text_style.dart';
+import 'package:kartjis_mobile_app/cores/utils/keys.dart';
+import 'package:kartjis_mobile_app/cores/utils/routes.dart';
+import 'package:kartjis_mobile_app/features/users/users.dart';
+import 'package:kartjis_mobile_app/features/main_menu/src/presentation/main_screen.dart';
+
+import 'features/auth/auth.dart';
 
 class KartjisApp extends StatelessWidget {
   const KartjisApp({super.key});
@@ -61,7 +58,6 @@ class KartjisApp extends StatelessWidget {
             );
           case otpRoute:
             final phoneNumber = settings.arguments as String;
-
             return MaterialPageRoute(
               builder: (_) => OTPPage(phoneNumber: phoneNumber),
               settings: settings,
