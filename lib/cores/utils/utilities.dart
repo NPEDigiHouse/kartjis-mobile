@@ -12,7 +12,7 @@ class Utilities {
       showDialog(
         context: context,
         barrierDismissible: false,
-        barrierColor: scaffoldBackgroundColor.withOpacity(0),
+        barrierColor: Palette.scaffoldBackgroundColor.withOpacity(0),
         builder: (context) => const SizedBox.expand(),
       );
 

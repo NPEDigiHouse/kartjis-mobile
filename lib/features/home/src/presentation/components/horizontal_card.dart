@@ -44,10 +44,10 @@ class HorizontalCard extends StatelessWidget {
                     RichText(
                       maxLines: 1,
                       text: TextSpan(
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w600,
-                          color: secondaryColor,
+                          color: Palette.secondaryColor,
                         ),
                         children: <TextSpan>[
                           TextSpan(
@@ -65,7 +65,7 @@ class HorizontalCard extends StatelessWidget {
                     Text(
                       'Organized by',
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: tertiaryColor,
+                            color: Palette.tertiaryColor,
                             letterSpacing: 0,
                           ),
                     ),
@@ -86,12 +86,12 @@ class HorizontalCard extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
-                                ?.copyWith(color: secondaryTextColor),
+                                ?.copyWith(color: Palette.secondaryTextColor),
                           ),
                         ),
                         const SizedBox(width: 8),
-                        const CircleAvatar(
-                          backgroundColor: secondaryTextColor,
+                         CircleAvatar(
+                          backgroundColor: Palette.secondaryTextColor,
                           radius: 2.5,
                         ),
                         const SizedBox(width: 8),
@@ -103,7 +103,7 @@ class HorizontalCard extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
-                                ?.copyWith(color: secondaryTextColor),
+                                ?.copyWith(color: Palette.secondaryTextColor),
                           ),
                         ),
                       ],

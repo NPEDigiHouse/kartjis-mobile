@@ -6,7 +6,7 @@ final inputDecorationTheme = InputDecorationTheme(
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(14),
   ),
-  hintStyle: const TextStyle(
-    color: onDisableColor,
+  hintStyle: TextStyle(
+    color: Palette.onDisableColor,
   ),
 );

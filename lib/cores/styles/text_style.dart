@@ -68,6 +68,6 @@ final textTheme = const TextTheme(
     fontWeight: FontWeight.w400,
   ),
 ).apply(
-  bodyColor: primaryTextColor,
-  displayColor: primaryTextColor,
+  bodyColor: Palette.primaryTextColor,
+  displayColor: Palette.primaryTextColor,
 );

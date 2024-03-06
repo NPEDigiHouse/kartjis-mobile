@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kartjis_mobile_app/cores/helpers/asset_path.dart';
 import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/features/event/src/presentation/pages/event/event_page.dart';
 import 'package:kartjis_mobile_app/features/home/src/presentation/pages/home/home_page.dart';
 import 'package:kartjis_mobile_app/features/ticket/src/presentation/pages/ticket_page.dart';
+import 'package:kartjis_mobile_app/features/users/src/presentation/pages/user_profile/profile_page.dart';
+
+import '../../../../cores/core.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -30,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
       const HomePage(),
       const EventPage(),
       const TicketPage(),
+      const ProfilePage(),
     ]);
   }
 
@@ -51,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
         children: _pages,
         onPageChanged: (index) => _selectedIndex.value = index,
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
+      bottomNavigationBar: _BottomNavBar(
         selectedIndex: _selectedIndex,
         pageController: _pageController,
       ),
@@ -59,91 +62,81 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class _BottomNavBar extends StatelessWidget {
   final ValueNotifier<int> selectedIndex;
   final PageController pageController;
 
-  const CustomBottomNavigationBar({
-    super.key,
+  const _BottomNavBar({
     required this.selectedIndex,
     required this.pageController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(16),
-        ),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            blurRadius: 16,
-            color: Colors.black.withOpacity(.1),
-            offset: const Offset(0.0, -1.0),
+    return ValueListenableBuilder(
+      valueListenable: selectedIndex,
+      builder: (context, selectedIndex, child) {
+        return BottomNavigationBar(
+          elevation: 0,
+          currentIndex: selectedIndex,
+          backgroundColor: Palette.scaffoldBackgroundColor,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          selectedItemColor: Palette.secondaryColor,
+          selectedLabelStyle: TextStyle(
+            color: Palette.secondaryColor,
+            fontWeight: FontWeight.w600,
           ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(16),
-        ),
-        child: ValueListenableBuilder(
-          valueListenable: selectedIndex,
-          builder: (context, selectedIndex, child) {
-            return BottomNavigationBar(
-              elevation: 0,
-              currentIndex: selectedIndex,
-              backgroundColor: scaffoldBackgroundColor,
-              selectedFontSize: 12,
-              unselectedFontSize: 12,
-              selectedLabelStyle: const TextStyle(
-                color: primaryColor,
-                fontWeight: FontWeight.w600,
+          unselectedItemColor: Palette.primaryTextColor,
+          type: BottomNavigationBarType.fixed,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                KartjisIcons.home,
               ),
-              unselectedLabelStyle: const TextStyle(
-                color: dividerColor,
-                fontWeight: FontWeight.w400,
+              activeIcon: SvgPicture.asset(
+                KartjisIcons.home,
+                color: Palette.secondaryColor,
               ),
-              type: BottomNavigationBarType.fixed,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    AssetPath.getIcon('home_unselected.svg'),
-                  ),
-                  activeIcon: SvgPicture.asset(
-                    AssetPath.getIcon('home_selected.svg'),
-                  ),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    AssetPath.getIcon('events_unselected.svg'),
-                  ),
-                  activeIcon: SvgPicture.asset(
-                    AssetPath.getIcon('events_selected.svg'),
-                  ),
-                  label: 'Events',
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    AssetPath.getIcon('ticket_unselected.svg'),
-                  ),
-                  activeIcon: SvgPicture.asset(
-                    AssetPath.getIcon('ticket_selected.svg'),
-                  ),
-                  label: 'Ticket',
-                ),
-              ],
-              onTap: (index) {
-                this.selectedIndex.value = index;
-
-                pageController.jumpToPage(index);
-              },
-            );
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                KartjisIcons.search,
+              ),
+              activeIcon: SvgPicture.asset(
+                KartjisIcons.search,
+                color: Palette.secondaryColor,
+              ),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                KartjisIcons.ticket,
+              ),
+              activeIcon: SvgPicture.asset(
+                KartjisIcons.ticket,
+                color: Palette.secondaryColor,
+              ),
+              label: 'Tickets',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                KartjisIcons.profile,
+              ),
+              activeIcon: SvgPicture.asset(
+                KartjisIcons.profile,
+                color: Palette.secondaryColor,
+              ),
+              label: 'Me',
+            ),
+          ],
+          onTap: (index) {
+            this.selectedIndex.value = index;
+            pageController.jumpToPage(index);
           },
-        ),
-      ),
+        );
+      },
     );
   }
 }

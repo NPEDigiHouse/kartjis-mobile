@@ -103,10 +103,10 @@ class _PasswordFieldState extends State<PasswordField> {
                         return CircleAvatar(
                           radius: 19,
                           backgroundColor:
-                              isFocus ? tertiaryColor : dividerColor,
+                              isFocus ? Palette.tertiaryColor : Palette.dividerColor,
                           child: Icon(
                             widget.prefixIcon,
-                            color: isFocus ? backgroundColor : onDisableColor,
+                            color: isFocus ? Palette.backgroundColor : Palette.onDisableColor,
                             size: 18,
                           ),
                         );
@@ -128,8 +128,8 @@ class _PasswordFieldState extends State<PasswordField> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(
-                color: tertiaryColor,
+              borderSide:  BorderSide(
+                color: Palette.tertiaryColor,
               ),
             ),
           ),

@@ -19,8 +19,8 @@ class AuthAppBar extends StatelessWidget {
       clipBehavior: Clip.none,
       children: <Widget>[
         Container(
-          decoration: const BoxDecoration(
-            color: backgroundColor,
+          decoration:  BoxDecoration(
+            color: Palette.backgroundColor,
             shape: BoxShape.circle,
           ),
           child: IconButton(
@@ -30,7 +30,7 @@ class AuthAppBar extends StatelessWidget {
             ),
             icon: const Icon(Icons.chevron_left_rounded),
             iconSize: 32,
-            color: primaryColor,
+            color: Palette.primaryColor,
             tooltip: 'Back',
           ),
         ),
@@ -43,13 +43,13 @@ class AuthAppBar extends StatelessWidget {
                 height: 36,
               ),
               const SizedBox(width: 8),
-              const Text(
+               Text(
                 'KARTJIS',
                 style: TextStyle(
                   fontFamily: 'Titillium Web',
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
-                  color: primaryColor,
+                  color: Palette.primaryColor,
                 ),
               ),
             ],

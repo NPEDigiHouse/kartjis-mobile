@@ -1,7 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kartjis_mobile_app/cores/components/adv_column.dart';
+import 'package:kartjis_mobile_app/cores/components/section_divider.dart';
+import 'package:kartjis_mobile_app/cores/components/sliver_sized_box.dart';
+import 'package:kartjis_mobile_app/cores/core.dart';
 import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
-import 'package:kartjis_mobile_app/cores/utils/keys.dart';
-import 'package:kartjis_mobile_app/features/users/src/presentation/components/_components.dart';
+import 'package:kartjis_mobile_app/cores/styles/text_style.dart';
+import 'package:kartjis_mobile_app/features/users/src/presentation/components/settings_tile.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -9,157 +15,207 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
-      appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: scaffoldBackgroundColor,
-        foregroundColor: primaryColor,
-        leading: IconButton(
-          onPressed: () => navigatorKey.currentState!.pop(),
-          icon: const Icon(
-            Icons.chevron_left_rounded,
-            size: 32,
+        appBar: AppBar(
+          title: Text(
+            'Profile',
+            style: textTheme.titleMedium?.copyWith(
+              color: Palette.primaryTextColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          centerTitle: true,
+          backgroundColor: Palette.scaffoldBackgroundColor,
+          elevation: 0,
         ),
-        title: const Text('My Account'),
-        titleSpacing: 0,
-        titleTextStyle: const TextStyle(
-          fontFamily: 'Montserrat',
-          fontWeight: FontWeight.w600,
-          color: primaryColor,
-          fontSize: 18,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              alignment: AlignmentDirectional.center,
-              children: <Widget>[
-                const SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: <Color>[
-                          primaryColor,
-                          primaryTextColor,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          blurRadius: 8,
-                          spreadRadius: 1,
-                          color: Colors.black.withOpacity(.1),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Richard Enrico Sulieanto',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 4),
-                          const Text(
-                            '+62 821 9824 6668',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: primaryColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+        backgroundColor: Palette.scaffoldBackgroundColor,
+        body: const CustomScrollView(
+          slivers: [
+            _ProfileHeader(),
+            SliverSizedBox(
+              height: 16,
             ),
-            SettingsTile(
-              text: 'Account',
-              leadingIcon: Icons.person_2_rounded,
-              trailingIcon: Icons.chevron_right_rounded,
-              onTap: () {},
+            SliverToBoxAdapter(child: SectionDivider()),
+            _ProfileMenu(),
+            SliverToBoxAdapter(child: SectionDivider()),
+            SliverSizedBox(
+              height: 32,
             ),
-            const Divider(
-              height: 0,
-              thickness: 1,
-              indent: 20,
-              endIndent: 20,
+            _LogOutButton(),
+            SliverSizedBox(
+              height: 32,
             ),
-            SettingsTile(
-              text: 'Languange',
-              leadingIcon: Icons.language_rounded,
-              trailingIcon: Icons.chevron_right_rounded,
-              onTap: () {},
-            ),
-            const Divider(
-              height: 0,
-              thickness: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            SettingsTile(
-              text: 'Location',
-              leadingIcon: Icons.navigation_rounded,
-              trailingIcon: Icons.chevron_right_rounded,
-              onTap: () {},
-            ),
-            const SizedBox(height: 20),
-            SettingsTile(
-              text: 'Kartjis Guide',
-              leadingIcon: Icons.lightbulb_rounded,
-              trailingIcon: Icons.chevron_right_rounded,
-              onTap: () {},
-            ),
-            const Divider(
-              height: 0,
-              thickness: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            SettingsTile(
-              text: 'Help',
-              leadingIcon: Icons.help_rounded,
-              trailingIcon: Icons.chevron_right_rounded,
-              onTap: () {},
-            ),
-            const SizedBox(height: 20),
-            SettingsTile(
-              text: 'Exit',
-              leadingIcon: Icons.exit_to_app_rounded,
-              onTap: () {},
+            _ProfileFooter(),
+            SliverSizedBox(
+              height: 16,
             ),
           ],
+        ));
+  }
+}
+
+class _ProfileFooter extends StatelessWidget {
+  const _ProfileFooter();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: AdvColumn(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'App Version : 1.0.0',
+            style: textTheme.bodySmall
+                ?.copyWith(color: Palette.secondaryTextColor),
+          ),
+          Text(
+            '© 2023 CV. Kartjis.Id',
+            style: textTheme.bodySmall
+                ?.copyWith(color: Palette.secondaryTextColor),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Terms & Conditions',
+                style: textTheme.bodySmall?.copyWith(
+                    color: Palette.secondaryTextColor,
+                    decoration: TextDecoration.underline),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                'Privacy Policy',
+                style: textTheme.bodySmall?.copyWith(
+                    color: Palette.secondaryTextColor,
+                    decoration: TextDecoration.underline),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LogOutButton extends StatelessWidget {
+  const _LogOutButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      sliver: SliverToBoxAdapter(
+        child: SizedBox(
+          width: double.infinity,
+          height: 54,
+          child: OutlinedButton(
+            onPressed: () {},
+            style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(
+                    color: Palette.secondaryColor,
+                  ),
+                ),
+                side: BorderSide(color: Palette.secondaryColor)),
+            child: Text(
+              'Log Out',
+              style: textTheme.titleMedium?.copyWith(
+                color: Palette.secondaryColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class _ProfileHeader extends StatelessWidget {
+  const _ProfileHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1),
+              shape: BoxShape.circle,
+              color: Palette.primaryTextColor,
+              image: const DecorationImage(
+                image: AssetImage('assets/img/avatar1.jpg'),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Text(
+            'Jessy',
+            style: textTheme.bodyLarge?.copyWith(
+              color: Palette.primaryTextColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Text('phantom26isn@gmail.com'),
+          const SizedBox(
+            height: 4,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                CupertinoIcons.location_solid,
+                color: Palette.primaryColor,
+                size: 14,
+              ),
+              Text(
+                'Makassar',
+                style: textTheme.bodySmall,
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProfileMenu extends StatelessWidget {
+  const _ProfileMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: AdvColumn(
+        divider: Container(
+          height: 1,
+          color: Palette.dividerColor,
+        ),
+        children: [
+          SettingsTile(
+            text: 'Edit Profile',
+            leadingIcon: SvgPicture.asset(KartjisIcons.profile),
+          ),
+          SettingsTile(
+            text: 'App Settings',
+            leadingIcon: SvgPicture.asset(KartjisIcons.device),
+          ),
+          SettingsTile(
+            text: 'Get Help',
+            leadingIcon: SvgPicture.asset(KartjisIcons.chat),
+          ),
+          SettingsTile(
+            text: 'Rate Us',
+            leadingIcon: SvgPicture.asset(KartjisIcons.star),
+          ),
+        ],
       ),
     );
   }

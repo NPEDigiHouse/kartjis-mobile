@@ -5,6 +5,7 @@ import 'package:kartjis_mobile_app/cores/styles/input_style.dart';
 import 'package:kartjis_mobile_app/cores/styles/text_style.dart';
 import 'package:kartjis_mobile_app/cores/utils/keys.dart';
 import 'package:kartjis_mobile_app/cores/utils/routes.dart';
+import 'package:kartjis_mobile_app/features/home/home.dart';
 import 'package:kartjis_mobile_app/features/users/users.dart';
 import 'package:kartjis_mobile_app/features/main_menu/src/presentation/main_screen.dart';
 
@@ -22,8 +23,8 @@ class KartjisApp extends StatelessWidget {
         fontFamily: 'Montserrat',
         colorScheme: colorScheme,
         textTheme: textTheme,
-        dividerColor: dividerColor,
-        scaffoldBackgroundColor: scaffoldBackgroundColor,
+        dividerColor: Palette.dividerColor,
+        scaffoldBackgroundColor: Palette.scaffoldBackgroundColor,
         filledButtonTheme: filledButtonTheme,
         outlinedButtonTheme: outlinedButtonTheme,
         textButtonTheme: textButtonTheme,
@@ -38,7 +39,7 @@ class KartjisApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
       navigatorObservers: [routeObserver],
-      home: LoginPage(),
+      home: const MainScreen(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case loginRoute:

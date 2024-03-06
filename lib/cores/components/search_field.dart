@@ -50,25 +50,25 @@ class _SearchFieldState extends State<SearchField> {
           textAlignVertical: TextAlignVertical.center,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 height: 1.5,
-                color: primaryColor,
+                color: Palette.primaryColor,
               ),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
             hintText: 'Cari event',
             hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   height: 1.5,
-                  color: secondaryTextColor,
+                  color: Palette.secondaryTextColor,
                 ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: dividerColor,
+              borderSide:  BorderSide(
+                color: Palette.dividerColor,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: primaryColor,
+              borderSide:  BorderSide(
+                color: Palette.primaryColor,
               ),
             ),
             prefixIcon: Padding(
@@ -82,7 +82,7 @@ class _SearchFieldState extends State<SearchField> {
                   return SvgPicture.asset(
                     AssetPath.getIcon('search_outlined.svg'),
                     width: 20,
-                    color: isFocus ? primaryColor : secondaryTextColor,
+                    color: isFocus ? Palette.primaryColor : Palette.secondaryTextColor,
                   );
                 },
               ),

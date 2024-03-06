@@ -76,7 +76,7 @@ class CarouselCard extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall
-                          ?.copyWith(color: backgroundColor),
+                          ?.copyWith(color: Palette.backgroundColor),
                     ),
                   ),
                 ),
@@ -88,8 +88,8 @@ class CarouselCard extends StatelessWidget {
               width: 234,
               height: isShowed ? 184 : 0,
               clipBehavior: Clip.antiAlias,
-              decoration: const BoxDecoration(
-                color: scaffoldBackgroundColor,
+              decoration:  BoxDecoration(
+                color: Palette.scaffoldBackgroundColor,
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(16),
                 ),
@@ -98,7 +98,7 @@ class CarouselCard extends StatelessWidget {
                 children: <Widget>[
                   Positioned.fill(
                     child: Container(
-                      color: scaffoldBackgroundColor,
+                      color: Palette.scaffoldBackgroundColor,
                     ),
                   ),
                   SingleChildScrollView(
@@ -119,7 +119,7 @@ class CarouselCard extends StatelessWidget {
                                       .textTheme
                                       .labelSmall
                                       ?.copyWith(
-                                        color: tertiaryColor,
+                                        color: Palette.tertiaryColor,
                                         letterSpacing: 0,
                                       ),
                                 ),
@@ -134,10 +134,10 @@ class CarouselCard extends StatelessWidget {
                               child: RichText(
                                 textAlign: TextAlign.end,
                                 text: TextSpan(
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.w600,
-                                    color: secondaryColor,
+                                    color: Palette.secondaryColor,
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
@@ -167,9 +167,9 @@ class CarouselCard extends StatelessWidget {
                         const SizedBox(height: 12),
                         Row(
                           children: <Widget>[
-                            const Icon(
+                             Icon(
                               Icons.event_rounded,
-                              color: secondaryTextColor,
+                              color: Palette.secondaryTextColor,
                               size: 16,
                             ),
                             const SizedBox(width: 5),
@@ -181,7 +181,7 @@ class CarouselCard extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
-                                    ?.copyWith(color: secondaryTextColor),
+                                    ?.copyWith(color: Palette.secondaryTextColor),
                               ),
                             ),
                           ],
@@ -189,9 +189,9 @@ class CarouselCard extends StatelessWidget {
                         const SizedBox(height: 6),
                         Row(
                           children: <Widget>[
-                            const Icon(
+                             Icon(
                               Icons.location_on_rounded,
-                              color: secondaryTextColor,
+                              color: Palette.secondaryTextColor,
                               size: 16,
                             ),
                             const SizedBox(width: 5),
@@ -203,7 +203,7 @@ class CarouselCard extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
-                                    ?.copyWith(color: secondaryTextColor),
+                                    ?.copyWith(color: Palette.secondaryTextColor),
                               ),
                             ),
                           ],

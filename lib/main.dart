@@ -14,9 +14,9 @@ void main() async {
 
   // Change status bar and navigation color
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
+    SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: scaffoldBackgroundColor,
+      systemNavigationBarColor: Palette.scaffoldBackgroundColor,
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );

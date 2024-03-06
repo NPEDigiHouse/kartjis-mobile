@@ -1,13 +1,10 @@
-import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartjis_mobile_app/cores/components/search_field.dart';
-import 'package:kartjis_mobile_app/cores/helpers/asset_path.dart';
+import 'package:kartjis_mobile_app/cores/core.dart';
 import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
-import 'package:kartjis_mobile_app/cores/utils/keys.dart';
-import 'package:kartjis_mobile_app/cores/utils/routes.dart';
 import 'package:kartjis_mobile_app/features/event/src/data/concert.dart';
-import 'package:kartjis_mobile_app/features/users/src/data/user.dart';
 import 'package:kartjis_mobile_app/features/home/src/presentation/components/carousel_card.dart';
 import 'package:kartjis_mobile_app/features/home/src/presentation/components/horizontal_card.dart';
 import 'package:kartjis_mobile_app/features/home/src/presentation/components/vertical_card.dart';
@@ -46,7 +43,6 @@ class _HomePageState extends State<HomePage>
   @override
   void dispose() {
     super.dispose();
-
     query.dispose();
     eventType.dispose();
     showedIndex.dispose();
@@ -62,76 +58,21 @@ class _HomePageState extends State<HomePage>
           floatHeaderSlivers: true,
           headerSliverBuilder: (_, __) {
             return <Widget>[
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 32, 20, 0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Text>[
-                            const Text(
-                              'Selamat Datang,',
-                              style: TextStyle(
-                                color: primaryColor,
-                              ),
-                            ),
-                            Text(
-                              '${user.name}!',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: primaryColor,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 24),
-                      GestureDetector(
-                        onTap: () {
-                          navigatorKey.currentState!.pushNamed(profileRoute);
-                        },
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundColor: backgroundColor,
-                          foregroundImage: AssetImage(
-                            AssetPath.getImage('avatar1.jpg'),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               SliverAppBar(
                 snap: true,
                 floating: true,
                 elevation: 0,
                 automaticallyImplyLeading: false,
-                toolbarHeight: kToolbarHeight + 75,
-                backgroundColor: scaffoldBackgroundColor.withAlpha(200),
-                flexibleSpace: ClipRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        children: <Widget>[
-                          buildSearchField(),
-                          buildChoiceChips(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                backgroundColor: Palette.scaffoldBackgroundColor.withAlpha(200),
+                title: KartjisAssets.logo,
+                actions: const [
+                  _ReadOnlySearchField(),
+                ],
               ),
             ];
+            
           },
+          
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(0, 8, 0, 16),
@@ -142,10 +83,10 @@ class _HomePageState extends State<HomePage>
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: <Widget>[
-                      const Icon(
+                      Icon(
                         Icons.local_fire_department,
                         size: 32,
-                        color: primaryColor,
+                        color: Palette.primaryColor,
                       ),
                       const SizedBox(width: 6),
                       Flexible(
@@ -154,7 +95,7 @@ class _HomePageState extends State<HomePage>
                           style:
                               Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.w600,
-                                    color: primaryColor,
+                                    color: Palette.primaryColor,
                                   ),
                         ),
                       ),
@@ -221,57 +162,6 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Padding buildSearchField() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 4),
-      child: ValueListenableBuilder(
-        valueListenable: query,
-        builder: (context, value, child) {
-          return SearchField(
-            text: value,
-            onChanged: (value) => query.value = value,
-          );
-        },
-      ),
-    );
-  }
-
-  SizedBox buildChoiceChips() {
-    return SizedBox(
-      height: 64,
-      child: ListView.separated(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 4),
-        scrollDirection: Axis.horizontal,
-        itemCount: eventList.length,
-        itemBuilder: (context, index) {
-          return ValueListenableBuilder(
-            valueListenable: eventType,
-            builder: (context, value, child) {
-              final isSelected = value == eventList[index];
-
-              return ChoiceChip(
-                pressElevation: 0,
-                label: Text(eventList[index]),
-                labelPadding: const EdgeInsets.symmetric(horizontal: 12),
-                labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: isSelected ? backgroundColor : primaryColor,
-                    ),
-                selectedColor: primaryColor,
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                side: isSelected ? null : const BorderSide(color: dividerColor),
-                selected: isSelected,
-                onSelected: (_) => eventType.value = eventList[index],
-              );
-            },
-          );
-        },
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
-      ),
-    );
-  }
 
   Padding buildTitleSection({
     required String title,
@@ -286,7 +176,7 @@ class _HomePageState extends State<HomePage>
               title,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: primaryColor,
+                    color: Palette.primaryColor,
                   ),
             ),
           ),
@@ -300,13 +190,13 @@ class _HomePageState extends State<HomePage>
                   'Lihat lebih banyak',
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         fontWeight: FontWeight.w600,
-                        color: primaryColor,
+                        color: Palette.primaryColor,
                         letterSpacing: 0,
                       ),
                 ),
-                const Icon(
+                Icon(
                   Icons.chevron_right_rounded,
-                  color: primaryColor,
+                  color: Palette.primaryColor,
                   size: 16,
                 ),
               ],
@@ -319,4 +209,56 @@ class _HomePageState extends State<HomePage>
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class _ReadOnlySearchField extends StatelessWidget {
+  const _ReadOnlySearchField();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+      child: SizedBox(
+        height: 40,
+        width: 200,
+        child: TextField(
+          readOnly: true,
+          textInputAction: TextInputAction.search,
+          textAlignVertical: TextAlignVertical.center,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                height: 1.5,
+                color: Palette.primaryColor,
+              ),
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+            hintText: 'Find artist, team',
+            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  height: 1.5,
+                  color: Palette.primaryTextColor,
+                ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(80),
+              borderSide: BorderSide(
+                color: Palette.dividerColor,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(80),
+              borderSide: BorderSide(
+                color: Palette.dividerColor,
+              ),
+            ),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                KartjisIcons.search,
+                width: 20,
+                height: 20,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

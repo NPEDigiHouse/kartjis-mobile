@@ -58,7 +58,7 @@ class OTPPage extends StatelessWidget {
                   'Masukkan\nKode OTP!',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w600,
-                        color: primaryColor,
+                        color: Palette.primaryColor,
                       ),
                 ),
                 const SizedBox(height: 4),
@@ -66,7 +66,7 @@ class OTPPage extends StatelessWidget {
                   'Kode OTP telah terkirim ke nomor xxx${phoneNumber.substring(phoneNumber.length - 4)} melalui pesan. Masukkan kode tersebut untuk melanjutkan.',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         height: 1.5,
-                        color: secondaryTextColor,
+                        color: Palette.secondaryTextColor,
                       ),
                 ),
                 const SizedBox(height: 24),
@@ -108,7 +108,7 @@ class OTPPage extends StatelessWidget {
                                 .headlineSmall
                                 ?.copyWith(
                                   fontWeight: FontWeight.w600,
-                                  color: secondaryColor,
+                                  color: Palette.secondaryColor,
                                 ),
                             onChanged: (value) {
                               if (value?.length == 1) {
@@ -126,15 +126,15 @@ class OTPPage extends StatelessWidget {
                   child: Container(
                     width: 54,
                     height: 54,
-                    decoration: const BoxDecoration(
-                      color: primaryColor,
+                    decoration:  BoxDecoration(
+                      color: Palette.primaryColor,
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
                       onPressed: () => submitOTPCode(context),
                       icon: const Icon(Icons.chevron_right_rounded),
                       iconSize: 40,
-                      color: scaffoldBackgroundColor,
+                      color: Palette.scaffoldBackgroundColor,
                       tooltip: 'Submit',
                     ),
                   ),
@@ -169,8 +169,8 @@ class OTPPage extends StatelessWidget {
     } else {
       final errorBanner = BannerUtils.createMaterialBanner(
         contentText: 'Kode OTP yang dimasukkan tidak valid!',
-        foregroundColor: scaffoldBackgroundColor,
-        backgroundColor: errorColor,
+        foregroundColor: Palette.scaffoldBackgroundColor,
+        backgroundColor: Palette.errorColor,
         leadingIcon: Icons.cancel_outlined,
       );
 

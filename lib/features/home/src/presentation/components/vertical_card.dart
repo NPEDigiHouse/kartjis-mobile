@@ -65,10 +65,10 @@ class VerticalCard extends StatelessWidget {
                     children: <Widget>[
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w600,
-                            color: scaffoldBackgroundColor,
+                            color: Palette.scaffoldBackgroundColor,
                           ),
                           children: <TextSpan>[
                             TextSpan(
@@ -86,7 +86,7 @@ class VerticalCard extends StatelessWidget {
                       Text(
                         'Organized by',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              color: tertiaryColor,
+                              color: Palette.tertiaryColor,
                               letterSpacing: 0,
                             ),
                       ),
@@ -119,9 +119,9 @@ class VerticalCard extends StatelessWidget {
                 const SizedBox(height: 10),
                 Row(
                   children: <Widget>[
-                    const Icon(
+                     Icon(
                       Icons.event_rounded,
-                      color: secondaryTextColor,
+                      color: Palette.secondaryTextColor,
                       size: 16,
                     ),
                     const SizedBox(width: 5),
@@ -133,7 +133,7 @@ class VerticalCard extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall
-                            ?.copyWith(color: secondaryTextColor),
+                            ?.copyWith(color: Palette.secondaryTextColor),
                       ),
                     ),
                   ],
@@ -141,9 +141,9 @@ class VerticalCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: <Widget>[
-                    const Icon(
+                     Icon(
                       Icons.location_on_rounded,
-                      color: secondaryTextColor,
+                      color: Palette.secondaryTextColor,
                       size: 16,
                     ),
                     const SizedBox(width: 5),
@@ -155,7 +155,7 @@ class VerticalCard extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall
-                            ?.copyWith(color: secondaryTextColor),
+                            ?.copyWith(color: Palette.secondaryTextColor),
                       ),
                     ),
                   ],

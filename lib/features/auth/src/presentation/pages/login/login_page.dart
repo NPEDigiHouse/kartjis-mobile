@@ -51,8 +51,8 @@ class LoginPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: <Color>[
-                            primaryColor.withOpacity(.5),
-                            primaryColor.withOpacity(.8),
+                            Palette.primaryColor.withOpacity(.5),
+                            Palette.primaryColor.withOpacity(.8),
                           ],
                         ),
                       ),
@@ -69,14 +69,14 @@ class LoginPage extends StatelessWidget {
                             AssetPath.getIcon('kartjis_filled.svg'),
                           ),
                           const SizedBox(height: 24),
-                          const Text(
+                           Text(
                             'KARTJIS',
                             style: TextStyle(
                               fontFamily: 'Titillium Web',
                               fontWeight: FontWeight.bold,
                               fontSize: 48,
                               height: 1,
-                              color: primaryColor,
+                              color: Palette.primaryColor,
                             ),
                           ),
                           Text(
@@ -146,7 +146,7 @@ class LoginPage extends StatelessWidget {
                                   ?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0,
-                                    color: primaryColor,
+                                    color: Palette.primaryColor,
                                   ),
                             ),
                           ),
@@ -202,7 +202,7 @@ class LoginPage extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
-                                      color: primaryColor,
+                                      color: Palette.primaryColor,
                                     ),
                           ),
                         ),
@@ -227,8 +227,8 @@ class LoginPage extends StatelessWidget {
       if (data['email'] != user.email || data['password'] != user.password) {
         final errorBanner = BannerUtils.createMaterialBanner(
           contentText: 'Email atau Password salah!',
-          foregroundColor: scaffoldBackgroundColor,
-          backgroundColor: errorColor,
+          foregroundColor: Palette.scaffoldBackgroundColor,
+          backgroundColor: Palette.errorColor,
           leadingIcon: Icons.cancel_outlined,
         );
 

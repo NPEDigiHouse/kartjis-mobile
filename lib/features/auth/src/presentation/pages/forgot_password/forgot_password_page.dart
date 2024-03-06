@@ -44,7 +44,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 'Lupa\nPassword?',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: primaryColor,
+                      color: Palette.primaryColor,
                     ),
               ),
               const SizedBox(height: 4),
@@ -52,7 +52,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 'Masukkan No. HP yang telah terdaftar dan Kami akan mengirimkan konfirmasi untuk me-reset password Anda.',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       height: 1.5,
-                      color: secondaryTextColor,
+                      color: Palette.secondaryTextColor,
                     ),
               ),
               const SizedBox(height: 24),
@@ -135,8 +135,8 @@ class ForgotPasswordPage extends StatelessWidget {
       final successBanner = BannerUtils.createMaterialBanner(
         contentText:
             'Kode OTP telah terkirim ke nomor xxx${phoneNumber.substring(phoneNumber.length - 4)}',
-        foregroundColor: scaffoldBackgroundColor,
-        backgroundColor: successColor,
+        foregroundColor: Palette.scaffoldBackgroundColor,
+        backgroundColor: Palette.successColor,
         leadingIcon: Icons.check_circle_outlined,
       );
 

@@ -67,8 +67,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: <Color>[
-                          primaryColor.withOpacity(.5),
-                          primaryColor.withOpacity(.8),
+                          Palette.primaryColor.withOpacity(.5),
+                          Palette.primaryColor.withOpacity(.8),
                         ],
                       ),
                     ),
@@ -83,14 +83,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
-                            color: scaffoldBackgroundColor.withOpacity(.15),
+                            color: Palette.scaffoldBackgroundColor
+                                .withOpacity(.15),
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
                             onPressed: () => navigatorKey.currentState!.pop(),
                             icon: const Icon(Icons.chevron_left_rounded),
                             iconSize: 32,
-                            color: scaffoldBackgroundColor,
+                            color: Palette.scaffoldBackgroundColor,
                             tooltip: 'Back',
                           ),
                         ),
@@ -106,20 +107,20 @@ class _RegisterPageState extends State<RegisterPage> {
                               .headlineMedium
                               ?.copyWith(
                                 fontWeight: FontWeight.w600,
-                                color: primaryColor,
+                                color: Palette.primaryColor,
                               ),
                         ),
                         const SizedBox(height: 2),
                         RichText(
                           text: TextSpan(
                             style: Theme.of(context).textTheme.bodySmall,
-                            children: const <TextSpan>[
+                            children: <TextSpan>[
                               TextSpan(
                                 text:
                                     'Daftarkan akun Anda, lalu jelajahi berbagai event & konser menarik di ',
                                 style: TextStyle(
                                   height: 1.5,
-                                  color: secondaryTextColor,
+                                  color: Palette.secondaryTextColor,
                                 ),
                               ),
                               TextSpan(
@@ -127,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 style: TextStyle(
                                   height: 1.5,
                                   fontWeight: FontWeight.w600,
-                                  color: primaryColor,
+                                  color: Palette.primaryColor,
                                 ),
                               ),
                             ],
@@ -218,7 +219,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Theme.of(context).textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 0,
-                                      color: primaryColor,
+                                      color: Palette.primaryColor,
                                     ),
                           ),
                         ),
@@ -291,8 +292,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       style: Theme.of(context).textTheme.bodySmall,
-                      children: const <TextSpan>[
-                        TextSpan(
+                      children: <TextSpan>[
+                        const TextSpan(
                           text:
                               'Dengan mendaftar, Anda telah menyetujui setiap\t',
                         ),
@@ -300,10 +301,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           text: 'syarat dan ketentuan\t',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: primaryColor,
+                            color: Palette.primaryColor,
                           ),
                         ),
-                        TextSpan(
+                        const TextSpan(
                           text: 'yang berlaku.',
                         ),
                       ],

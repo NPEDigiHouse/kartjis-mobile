@@ -63,7 +63,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 'Reset\nPassword',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: primaryColor,
+                      color: Palette.primaryColor,
                     ),
               ),
               const SizedBox(height: 4),
@@ -71,7 +71,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 'Ingat baik-baik password baru Anda agar tidak terjadi hal yang sama!',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       height: 1.5,
-                      color: secondaryTextColor,
+                      color: Palette.secondaryTextColor,
                     ),
               ),
               const SizedBox(height: 24),
@@ -175,8 +175,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       final successBanner = BannerUtils.createMaterialBanner(
         contentText:
             'Password berhasil direset. Silahkan masuk menggunakan password baru Anda.',
-        foregroundColor: scaffoldBackgroundColor,
-        backgroundColor: successColor,
+        foregroundColor: Palette.scaffoldBackgroundColor,
+        backgroundColor: Palette.successColor,
         leadingIcon: Icons.check_circle_outlined,
       );
 

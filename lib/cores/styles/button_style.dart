@@ -3,8 +3,8 @@ import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
 
 final filledButtonTheme = FilledButtonThemeData(
   style: FilledButton.styleFrom(
-    backgroundColor: primaryColor,
-    foregroundColor: scaffoldBackgroundColor,
+    backgroundColor: Palette.primaryColor,
+    foregroundColor: Palette.scaffoldBackgroundColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     ),
@@ -13,8 +13,8 @@ final filledButtonTheme = FilledButtonThemeData(
 
 final outlinedButtonTheme = OutlinedButtonThemeData(
   style: OutlinedButton.styleFrom(
-    foregroundColor: primaryColor,
-    side: const BorderSide(color: primaryColor),
+    foregroundColor: Palette.primaryColor,
+    side:  BorderSide(color: Palette.primaryColor),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     ),
@@ -23,7 +23,7 @@ final outlinedButtonTheme = OutlinedButtonThemeData(
 
 final textButtonTheme = TextButtonThemeData(
   style: TextButton.styleFrom(
-    foregroundColor: primaryColor,
+    foregroundColor: Palette.primaryColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     ),

@@ -3,15 +3,13 @@ import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
 
 class SettingsTile extends StatelessWidget {
   final String text;
-  final IconData? leadingIcon;
-  final IconData? trailingIcon;
+  final Widget? leadingIcon;
   final VoidCallback? onTap;
 
   const SettingsTile({
     super.key,
     required this.text,
     this.leadingIcon,
-    this.trailingIcon,
     this.onTap,
   });
 
@@ -25,13 +23,18 @@ class SettingsTile extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      leading: Icon(leadingIcon),
-      trailing: Icon(trailingIcon),
-      textColor: primaryColor,
-      iconColor: primaryColor,
-      tileColor: scaffoldBackgroundColor,
+      leading: leadingIcon,
+      trailing: Icon(
+        Icons.arrow_forward_ios_rounded,
+        color: Palette.primaryColor,
+        size: 12,
+      ),
+      textColor: Palette.primaryColor,
+      iconColor: Palette.primaryColor,
+      tileColor: Palette.scaffoldBackgroundColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       minLeadingWidth: 24,
+    
       onTap: onTap,
     );
   }

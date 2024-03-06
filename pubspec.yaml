@@ -1,6 +1,6 @@
 name: kartjis_mobile_app
 description: A new Flutter project.
-publish_to: "none" 
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   carousel_slider: ^4.2.1
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
   flutter:
     sdk: flutter
   flutter_form_builder: ^9.1.1
@@ -16,6 +16,10 @@ dependencies:
   flutter_svg: ^1.1.6
   form_builder_validators: ^9.1.0
   intl: ^0.18.1
+  dio: ^4.0.0
+
+  toku_flutter_common:
+    path: ../toku_flutter_common/
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -31,7 +35,6 @@ flutter:
     - assets/icon/
     - assets/img/
     - assets/svg/
-
 
   fonts:
     - family: Montserrat

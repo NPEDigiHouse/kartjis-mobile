@@ -28,10 +28,10 @@ class LoadingIndicator extends StatelessWidget {
         duration: const Duration(milliseconds: 2000),
         itemBuilder: (context, index) {
           final colors = <Color>[
-            primaryColor,
-            primaryColor.withOpacity(.9),
-            primaryColor.withOpacity(.8),
-            primaryColor.withOpacity(.7),
+            Palette.primaryColor,
+            Palette.primaryColor.withOpacity(.9),
+            Palette.primaryColor.withOpacity(.8),
+           Palette. primaryColor.withOpacity(.7),
           ];
 
           return DecoratedBox(
