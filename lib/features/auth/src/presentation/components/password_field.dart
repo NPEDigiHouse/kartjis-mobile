@@ -87,9 +87,7 @@ class _PasswordFieldState extends State<PasswordField> {
           textAlignVertical: TextAlignVertical.center,
           obscureText: !isVisible,
           decoration: InputDecoration(
-            contentPadding: !widget.hasPrefixIcon
-                ? const EdgeInsets.fromLTRB(16, 12, 16, 12)
-                : null,
+            contentPadding: !widget.hasPrefixIcon ? const EdgeInsets.fromLTRB(16, 12, 16, 12) : null,
             hintText: widget.hintText,
             prefixIcon: widget.hasPrefixIcon
                 ? Padding(
@@ -102,8 +100,7 @@ class _PasswordFieldState extends State<PasswordField> {
                       builder: (context, isFocus, child) {
                         return CircleAvatar(
                           radius: 19,
-                          backgroundColor:
-                              isFocus ? Palette.tertiaryColor : Palette.dividerColor,
+                          backgroundColor: isFocus ? Palette.tertiaryColor : Palette.dividerColor,
                           child: Icon(
                             widget.prefixIcon,
                             color: isFocus ? Palette.backgroundColor : Palette.onDisableColor,
@@ -119,23 +116,19 @@ class _PasswordFieldState extends State<PasswordField> {
                 end: widget.hasPrefixIcon ? 4 : 0,
               ),
               child: IconButton(
-                icon: isVisible
-                    ? const Icon(Icons.visibility_outlined)
-                    : const Icon(Icons.visibility_off_outlined),
+                icon: isVisible ? const Icon(Icons.visibility_outlined) : const Icon(Icons.visibility_off_outlined),
                 iconSize: 16,
                 onPressed: () => this.isVisible.value = !isVisible,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide:  BorderSide(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
                 color: Palette.tertiaryColor,
               ),
             ),
           ),
-          validator: widget.validators != null
-              ? FormBuilderValidators.compose(widget.validators!)
-              : null,
+          validator: widget.validators != null ? FormBuilderValidators.compose(widget.validators!) : null,
           onChanged: widget.onChanged,
         );
       },

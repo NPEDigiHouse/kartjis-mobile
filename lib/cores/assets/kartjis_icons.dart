@@ -16,6 +16,15 @@ class KartjisIcons {
   static const String device = '$_icon/device_mobile.svg';
   static const String chat = '$_icon/chat.svg';
   static const String star = '$_icon/star.svg';
+  static const String google = '$_icon/google_filled.svg';
+  static const String teater = '$_icon/mask.svg';
+  static const String sing = '$_icon/microphone.svg';
+  static const String sport = '$_icon/soccer.svg';
+  static const String view = '$_icon/paint.svg';
+  static const String seminar = '$_icon/chalkboard.svg';
+  static const String workshop = '$_icon/flower.svg';
+  static const String online = '$_icon/globe.svg';
+  static const String festival = '$_icon/flag.svg';
 }
 
 class KartjisAssets {

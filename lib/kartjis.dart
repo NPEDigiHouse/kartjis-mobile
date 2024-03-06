@@ -5,7 +5,7 @@ import 'package:kartjis_mobile_app/cores/styles/input_style.dart';
 import 'package:kartjis_mobile_app/cores/styles/text_style.dart';
 import 'package:kartjis_mobile_app/cores/utils/keys.dart';
 import 'package:kartjis_mobile_app/cores/utils/routes.dart';
-import 'package:kartjis_mobile_app/features/home/home.dart';
+import 'package:kartjis_mobile_app/features/explore/src/presentation/pages/search/explore_page.dart';
 import 'package:kartjis_mobile_app/features/users/users.dart';
 import 'package:kartjis_mobile_app/features/main_menu/src/presentation/main_screen.dart';
 
@@ -39,7 +39,7 @@ class KartjisApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
       navigatorObservers: [routeObserver],
-      home: const MainScreen(),
+      home: LoginPage(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case loginRoute:
@@ -76,6 +76,11 @@ class KartjisApp extends StatelessWidget {
           case profileRoute:
             return MaterialPageRoute(
               builder: (_) => const ProfilePage(),
+              settings: settings,
+            );
+          case ExplorePage.route:
+            return MaterialPageRoute(
+              builder: (_) => const ExplorePage(),
               settings: settings,
             );
           default:

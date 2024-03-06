@@ -99,10 +99,14 @@ class _CustomFieldState extends State<CustomField> {
                   builder: (context, isFocus, child) {
                     return CircleAvatar(
                       radius: 19,
-                      backgroundColor: isFocus ? Palette.tertiaryColor : Palette.dividerColor,
+                      backgroundColor: isFocus
+                          ? Palette.tertiaryColor
+                          : Palette.dividerColor,
                       child: Icon(
                         widget.prefixIcon,
-                        color: isFocus ? Palette.backgroundColor : Palette.onDisableColor,
+                        color: isFocus
+                            ? Palette.backgroundColor
+                            : Palette.onDisableColor,
                         size: 18,
                       ),
                     );
@@ -122,8 +126,8 @@ class _CustomFieldState extends State<CustomField> {
               )
             : null,
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide:  BorderSide(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
             color: Palette.tertiaryColor,
           ),
         ),

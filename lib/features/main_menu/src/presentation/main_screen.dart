@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kartjis_mobile_app/cores/core.dart';
 import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
-import 'package:kartjis_mobile_app/features/event/src/presentation/pages/event/event_page.dart';
+import 'package:kartjis_mobile_app/features/explore/src/presentation/pages/search/explore_page.dart';
 import 'package:kartjis_mobile_app/features/home/src/presentation/pages/home/home_page.dart';
 import 'package:kartjis_mobile_app/features/ticket/src/presentation/pages/ticket_page.dart';
 import 'package:kartjis_mobile_app/features/users/src/presentation/pages/user_profile/profile_page.dart';
-
-import '../../../../cores/core.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -30,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
 
     _pages.addAll([
       const HomePage(),
-      const EventPage(),
+      const SizedBox(),
       const TicketPage(),
       const ProfilePage(),
     ]);
@@ -52,7 +51,9 @@ class _MainScreenState extends State<MainScreen> {
         clipBehavior: Clip.none,
         controller: _pageController,
         children: _pages,
-        onPageChanged: (index) => _selectedIndex.value = index,
+        onPageChanged: (index) {
+          _selectedIndex.value = index;
+        },
       ),
       bottomNavigationBar: _BottomNavBar(
         selectedIndex: _selectedIndex,
@@ -87,12 +88,14 @@ class _BottomNavBar extends StatelessWidget {
             color: Palette.secondaryColor,
             fontWeight: FontWeight.w600,
           ),
+          unselectedIconTheme: const IconThemeData(color: Colors.black),
           unselectedItemColor: Palette.primaryTextColor,
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 KartjisIcons.home,
+                color: Palette.primaryTextColor,
               ),
               activeIcon: SvgPicture.asset(
                 KartjisIcons.home,
@@ -103,6 +106,7 @@ class _BottomNavBar extends StatelessWidget {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 KartjisIcons.search,
+                color: Palette.primaryTextColor,
               ),
               activeIcon: SvgPicture.asset(
                 KartjisIcons.search,
@@ -113,6 +117,7 @@ class _BottomNavBar extends StatelessWidget {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 KartjisIcons.ticket,
+                color: Palette.primaryTextColor,
               ),
               activeIcon: SvgPicture.asset(
                 KartjisIcons.ticket,
@@ -123,6 +128,7 @@ class _BottomNavBar extends StatelessWidget {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 KartjisIcons.profile,
+                color: Palette.primaryTextColor,
               ),
               activeIcon: SvgPicture.asset(
                 KartjisIcons.profile,
@@ -132,8 +138,12 @@ class _BottomNavBar extends StatelessWidget {
             ),
           ],
           onTap: (index) {
-            this.selectedIndex.value = index;
-            pageController.jumpToPage(index);
+            if (index == 1) {
+              Navigator.pushNamed(context, ExplorePage.route);
+            } else {
+              this.selectedIndex.value = index;
+              pageController.jumpToPage(index);
+            }
           },
         );
       },

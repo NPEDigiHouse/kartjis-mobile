@@ -10,6 +10,7 @@ import 'package:kartjis_mobile_app/cores/utils/banner_utils.dart';
 import 'package:kartjis_mobile_app/cores/utils/keys.dart';
 import 'package:kartjis_mobile_app/cores/utils/routes.dart';
 import 'package:kartjis_mobile_app/features/auth/auth.dart';
+import 'package:kartjis_mobile_app/features/auth/src/presentation/components/password_field.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key});
@@ -92,8 +93,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         FormBuilderValidators.match(
                           r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
-                          errorText:
-                              'Password min. 8 karakter dengan angka dan huruf',
+                          errorText: 'Password min. 8 karakter dengan angka dan huruf',
                         ),
                       ],
                       onChanged: (value) {
@@ -119,8 +119,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             FormBuilderValidators.equal(
                               password,
-                              errorText:
-                                  'Harus sama dengan password sebelumnya',
+                              errorText: 'Harus sama dengan password sebelumnya',
                             ),
                           ],
                         );
@@ -173,8 +172,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       );
 
       final successBanner = BannerUtils.createMaterialBanner(
-        contentText:
-            'Password berhasil direset. Silahkan masuk menggunakan password baru Anda.',
+        contentText: 'Password berhasil direset. Silahkan masuk menggunakan password baru Anda.',
         foregroundColor: Palette.scaffoldBackgroundColor,
         backgroundColor: Palette.successColor,
         leadingIcon: Icons.check_circle_outlined,

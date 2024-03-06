@@ -8,6 +8,7 @@ import 'package:kartjis_mobile_app/cores/helpers/reusable_helper.dart';
 import 'package:kartjis_mobile_app/cores/styles/color_scheme.dart';
 import 'package:kartjis_mobile_app/cores/utils/keys.dart';
 import 'package:kartjis_mobile_app/features/auth/src/presentation/components/_components.dart';
+import 'package:kartjis_mobile_app/features/auth/src/presentation/components/password_field.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -83,8 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
-                            color: Palette.scaffoldBackgroundColor
-                                .withOpacity(.15),
+                            color: Palette.scaffoldBackgroundColor.withOpacity(.15),
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
@@ -102,10 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(height: 12),
                         Text(
                           'Buat Akun',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: Palette.primaryColor,
                               ),
@@ -116,8 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             style: Theme.of(context).textTheme.bodySmall,
                             children: <TextSpan>[
                               TextSpan(
-                                text:
-                                    'Daftarkan akun Anda, lalu jelajahi berbagai event & konser menarik di ',
+                                text: 'Daftarkan akun Anda, lalu jelajahi berbagai event & konser menarik di ',
                                 style: TextStyle(
                                   height: 1.5,
                                   color: Palette.secondaryTextColor,
@@ -200,8 +196,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             FormBuilderValidators.match(
                               r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
-                              errorText:
-                                  'Password min. 8 karakter dengan angka dan huruf',
+                              errorText: 'Password min. 8 karakter dengan angka dan huruf',
                             ),
                           ],
                           onChanged: (value) {
@@ -215,12 +210,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           onTap: () => generateRandomPassword(),
                           child: Text(
                             'Gunakan password acak',
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 0,
-                                      color: Palette.primaryColor,
-                                    ),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 0,
+                                  color: Palette.primaryColor,
+                                ),
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -240,8 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 FormBuilderValidators.equal(
                                   password,
-                                  errorText:
-                                      'Harus sama dengan password sebelumnya',
+                                  errorText: 'Harus sama dengan password sebelumnya',
                                 ),
                               ],
                             );
@@ -294,8 +287,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: Theme.of(context).textTheme.bodySmall,
                       children: <TextSpan>[
                         const TextSpan(
-                          text:
-                              'Dengan mendaftar, Anda telah menyetujui setiap\t',
+                          text: 'Dengan mendaftar, Anda telah menyetujui setiap\t',
                         ),
                         TextSpan(
                           text: 'syarat dan ketentuan\t',
